@@ -12,11 +12,27 @@ import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import * as React from "react";
 import { Link, NavLink } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const drawerWidth = 240;
 const Navbar = (props) => {
+  const { user, userLogout } = useAuth();
+  console.log('user from navbar', user);
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const handleUserLogOUt = () => {
+    const toastId = toast.loading('Logouting...')
+    userLogout()
+    .then(() => {
+      toast.success('Registration successfully', {id : toastId});
+    })
+    .catch(err => {
+      toast.error(err.message, {id : toastId});
+    })
+  }
+
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
@@ -60,8 +76,17 @@ const Navbar = (props) => {
       <List>
         <div className="flex flex-col space-y-3">{navItems}</div>
         <div className="flex flex-col">
-          <Button variant="outline"><Link>Sign Up</Link></Button>
-          <Button variant="outline"><Link>Sign In</Link></Button>
+          {
+             user ? <>
+                   <img src={user?.photoURL} alt="" />
+                   <Button variant="outline"><Link>Logout</Link></Button>
+                   </>
+                  :
+                   <>
+                    <Button style={{border: '1px solid white'}} variant="outline"><Link to={'/signup'}>Sign Up</Link></Button>
+                    <Button style={{border: '1px solid white'}} variant="outline"><Link to={'/signin'}>Sign In</Link></Button> 
+                   </>
+          }
         </div>
       </List>
     </Box>
@@ -74,7 +99,7 @@ const Navbar = (props) => {
         <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <div style={{maxWidth: '1536px', width: '1536px', position: 'relative'}}  className="max-w-screen-2xl mx-auto border p-5">
-      <AppBar style={{background: '#3A5A40', maxWidth: '1536px',position: 'absolute'}} component="nav">
+      <AppBar style={{background: '#3A5A40', maxWidth: '1536px',position: 'absolute',padding: '11px 0'}} component="nav">
         <Toolbar>
           <IconButton
             color=""
@@ -96,17 +121,18 @@ const Navbar = (props) => {
           <Box className="hidden lg:block">
             <div className="flex items-center gap-64">
               <div className="flex gap-8">{navItems}</div>
-              <div className="flex gap-4">
-                <Link to={'/signup'}>
-                <Button style={{border: '1px solid white'}} variant="outline">
-                  Sign up
-                </Button>
-                </Link>
-                <Link to={'/signin'}>
-                <Button style={{border: '1px solid white'}} variant="outline">
-                  Sign in
-                </Button>
-                </Link>
+              <div className="flex items-center gap-5">
+              {
+                user ? <>
+                   <img className="w-11 h-11 rounded-full" src={user?.photoURL} alt="" />
+                   <Button onClick={handleUserLogOUt} style={{background: '#FFFFFF', color: '#344E41', fontWeight: '600', height: '45px', padding: '0 20px'}} variant="solid">Logout</Button>
+                   </>
+                  :
+                   <>
+                    <Button style={{border: '1px solid #DAD7CD'}} variant="outline"><Link to={'/signup'}>Sign Up</Link></Button>
+                    <Button style={{border: '1px solid #DAD7CD'}} variant="outline"><Link to={'/signin'}>Sign In</Link></Button> 
+                   </>
+                }
               </div>
             </div>
           </Box>

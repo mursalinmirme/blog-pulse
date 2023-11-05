@@ -11,10 +11,13 @@ import UpdateBlog from './pages/UpdateBlog'
 import AllBlogs from './pages/AllBlogs'
 import WishList from './pages/WishList'
 import FeaturedBlogs from './pages/FeaturedBlogs'
+import AuthProvider from './auth/AuthProvider'
+import ErrorPage from './pages/ErrorPage'
 const router = createBrowserRouter([
   {
     path: '/',
     element: <MainLayout></MainLayout>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: '/',
@@ -53,8 +56,8 @@ const router = createBrowserRouter([
 ])
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router}>
-
-    </RouterProvider>
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>,
 )
