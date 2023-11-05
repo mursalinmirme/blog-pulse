@@ -97,12 +97,16 @@ const Navbar = (props) => {
             <div className="flex items-center gap-64">
               <div className="flex gap-8">{navItems}</div>
               <div className="flex gap-4">
+                <Link to={'/signup'}>
                 <Button style={{border: '1px solid white'}} variant="outline">
                   Sign up
                 </Button>
+                </Link>
+                <Link to={'/signin'}>
                 <Button style={{border: '1px solid white'}} variant="outline">
                   Sign in
                 </Button>
+                </Link>
               </div>
             </div>
           </Box>
