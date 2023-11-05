@@ -38,12 +38,12 @@ const Navbar = (props) => {
           <span className={isActive ? "active" : ""}>All Blogs</span>
         )}
       </NavLink>
-      <NavLink to="/all-blogs">
+      <NavLink to="/featured-blogs">
         {({ isActive }) => (
           <span className={isActive ? "active" : ""}>Featured Blogs</span>
         )}
       </NavLink>
-      <NavLink to="/all-blogs">
+      <NavLink to="/wishlist">
         {({ isActive }) => (
           <span className={isActive ? "active" : ""}>Wishlist</span>
         )}

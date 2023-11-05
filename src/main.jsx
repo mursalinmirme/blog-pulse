@@ -6,6 +6,9 @@ import MainLayout from './mainLayout/MainLayout'
 import Home from './pages/Home'
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
+import AddBlog from './pages/AddBlog'
+import UpdateBlog from './pages/UpdateBlog'
+import AllBlogs from './pages/AllBlogs'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -22,6 +25,18 @@ const router = createBrowserRouter([
       {
         path: '/signin',
         element: <Signin></Signin>,
+      },
+      {
+        path: '/add-blog',
+        element: <AddBlog></AddBlog>,
+      },
+      {
+        path: '/update-blog',
+        element: <UpdateBlog></UpdateBlog>,
+      },
+      {
+        path: '/all-blogs',
+        element: <AllBlogs></AllBlogs>,
       },
     ]
   }

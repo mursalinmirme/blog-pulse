@@ -15,12 +15,12 @@ const Signin = () => {
                         <label className="mb-1" htmlFor="">Email</label>
                         <input className="border px-3 py-3 outline-none" type="text" name="" id="" placeholder="Enter your email" />
                     </div>
-                    <div className="flex flex-col mt-7">
+                    <div className="flex flex-col mt-7 relative">
                         <label className="mb-1" htmlFor="">Password</label>
-                        <input className="border px-3 py-3 outline-none" type="password" name="" id="" placeholder="Enter your password" />
+                        <input className="border px-3 py-3 outline-none" type={passwordType ? 'password' : 'text'} name="" id="" placeholder="Enter your password" />
                         {
-                            passwordType ? <AiFillEye onClick={() => setPasswordType(!passwordType)} className="absolute bottom-3 text-gray-600 right-4 text-xl"></AiFillEye> :
-                            <AiFillEyeInvisible onClick={() => setPasswordType(!passwordType)} className="absolute bottom-3 text-gray-600 right-4 text-xl"></AiFillEyeInvisible>
+                            passwordType ? <AiFillEye onClick={() => setPasswordType(!passwordType)} className="absolute bottom-3.5 text-gray-500 right-4 text-xl"></AiFillEye> :
+                            <AiFillEyeInvisible onClick={() => setPasswordType(!passwordType)} className="absolute bottom-3.5 text-gray-500 right-4 text-xl"></AiFillEyeInvisible>
                         }
                     </div>
                     <Button style={{background: '#588157', color: 'white', fontWeight: '600', marginTop: '30px'}} variant="solid" className="w-full h-12 text-base font-medium font-fontNoto">Sign In</Button>

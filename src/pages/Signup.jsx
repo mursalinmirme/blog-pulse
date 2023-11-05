@@ -9,7 +9,7 @@ const Signup = () => {
         <div className="mt-20 max-w-screen-2xl mx-auto">
             <div className="w-[550px] px-10 py-10 mx-auto border shadow rounded-xl">
                 <p className="text-center text-[#3A5A40]">Welcome</p>
-                <h3 className="text-center mt-3 text-xl font-semibold">{`Let's create an account`}</h3>
+                <h3 className="text-center mt-3 text-xl font-semibold font-fontNoto">{`Let's create an account`}</h3>
                 <form className="mt-7" action="">
                     <div className="flex flex-col">
                         <label className="mb-1" htmlFor="">Full Name</label>
@@ -27,8 +27,8 @@ const Signup = () => {
                         <label className="mb-1" htmlFor="">Password</label>
                         <input className="border px-3 py-2.5 outline-none" type={passwordType ? 'password' : 'text'} name="" id="" placeholder="Enter your password" />
                         {
-                            passwordType ? <AiFillEye onClick={() => setPasswordType(!passwordType)} className="absolute bottom-3 text-gray-600 right-4 text-xl"></AiFillEye> :
-                            <AiFillEyeInvisible onClick={() => setPasswordType(!passwordType)} className="absolute bottom-3 text-gray-600 right-4 text-xl"></AiFillEyeInvisible>
+                            passwordType ? <AiFillEye onClick={() => setPasswordType(!passwordType)} className="absolute bottom-3 text-gray-500 right-4 text-xl"></AiFillEye> :
+                            <AiFillEyeInvisible onClick={() => setPasswordType(!passwordType)} className="absolute bottom-3 text-gray-500 right-4 text-xl"></AiFillEyeInvisible>
                         }
                     </div>
                     <Button style={{background: '#588157', color: 'white', fontWeight: '600', marginTop: '30px'}} variant="solid" className="w-full h-12 text-base font-medium font-fontNoto">Sign UP</Button>
