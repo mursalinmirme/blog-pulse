@@ -1,8 +1,8 @@
-import TopBlogger from "../components/TopBlogger";
+import Banner from "../components/Banner";
+import NewsLetter from "../components/NewsLetter";
+import RecentBlogs from "../components/RecentBlogs";
 import TrandingTopics from "../components/TrandingTopics";
-import Banner from "./Banner";
-import NewsLetter from "./NewsLetter";
-import RecentBlogs from "./RecentBlogs";
+import TopBlogger from "../components/TopBlogger";
 
 const Home = () => {
     return (
@@ -10,7 +10,7 @@ const Home = () => {
             <Banner></Banner>
             <RecentBlogs></RecentBlogs>
             <NewsLetter></NewsLetter>
-            <TopBlogger></TopBlogger>
+             <TopBlogger></TopBlogger>
             <TrandingTopics></TrandingTopics>
         </div>
     );
