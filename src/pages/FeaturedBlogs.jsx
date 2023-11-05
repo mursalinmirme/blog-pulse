@@ -9,7 +9,7 @@ const FeaturedBlogs = () => {
     column1: `${index}`,
     column2: `Hidden Gems: 10 Beautiful Places You Must Visit`,
     column3: `Mursalin Mir`,
-    column4: <img src={user} alt="" />,
+    column4: user,
     id: index,
   }));
     return (
@@ -24,7 +24,7 @@ const FeaturedBlogs = () => {
       data={dataArray}
     //   editingMode={EditingMode.Cell}
       rowKeyField={'id'}
-    //   sortingMode={SortingMode.Single}
+      sortingMode={SortingMode.Single}
     />
         </div>
     );
