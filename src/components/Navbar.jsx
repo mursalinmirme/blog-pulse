@@ -78,8 +78,8 @@ const Navbar = (props) => {
         <div className="flex flex-col">
           {
              user ? <>
-                   <img src={user?.photoURL} alt="" />
-                   <Button variant="outline"><Link>Logout</Link></Button>
+                   <img className="w-20 h-20 mt-5 rounded-full mx-auto" src={user?.photoURL} alt="" />
+                   <Button style={{marginTop: '15px'}} variant="outline"><Link>Logout</Link></Button>
                    </>
                   :
                    <>

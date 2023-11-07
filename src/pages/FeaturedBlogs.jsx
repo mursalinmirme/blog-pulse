@@ -1,33 +1,63 @@
-import 'ka-table/style.css';
-import { Table } from 'ka-table';
-import user from '../assets/blogger.jpg'
-import { DataType, EditingMode, SortingMode } from 'ka-table/enums';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import DataTable from 'react-data-table-component';
+import './FeaturedBlogs.css';
+
 const FeaturedBlogs = () => {
-    const dataArray = Array(10)
-  .fill(undefined)
-  .map((_, index) => ({
-    column1: `${index}`,
-    column2: `Hidden Gems: 10 Beautiful Places You Must Visit`,
-    column3: `Mursalin Mir`,
-    column4: user,
-    id: index,
-  }));
-    return (
-        <div className="mt-20 w-10/12 mx-auto">
-            <Table
-      columns={[
-        { key: 'column1', title: 'Serial Number', dataType: DataType.String },
-        { key: 'column2', title: 'Blog Title', dataType: DataType.String },
-        { key: 'column3', title: 'Blog Owner', dataType: DataType.String },
-        { key: 'column4', title: 'Profile picture', dataType: DataType.String },
-      ]}
-      data={dataArray}
-    //   editingMode={EditingMode.Cell}
-      rowKeyField={'id'}
-      sortingMode={SortingMode.Single}
+
+  const {data, isLoading} = useQuery({
+    queryKey: ['featuredBlogsList'],
+    queryFn: async() => {
+        const getFeaturedData = await axios.get('http://localhost:5000/featured-blogs');
+        return getFeaturedData.data;
+    }
+  })
+if(isLoading){
+  return <div className='flex justify-center items-center w-full h-96'><h3 className='text-4xl'>Table Loading....</h3></div>
+}
+let tableData = [];
+for(let i = 0; i < data.length; i++){
+  console.log(data[i]);
+  tableData.push({blogTitle:data[i]?.blogTitle, blogOwner: data[i]?.bloggerName, ownerProfilePicture: data[i]?.bloggerImage})
+}
+console.log('new table is',tableData);
+
+const columns = [
+  {
+    name: 'Serial Number',
+    cell: (row, index) => index + 1,
+    sortable: false,
+  },
+  {
+    name: 'Blog Title',
+    selector: 'blogTitle',
+    sortable: false,
+  },
+  {
+    name: 'Blog Owner',
+    selector: 'blogOwner',
+    sortable: false,
+  },
+  {
+    name: 'Owner Profile Picture',
+    cell: (row) => <img src={row.ownerProfilePicture} alt="Profile" style={{ width: '70px' }} />,
+  },
+];
+
+
+
+  return (
+    <div className='w-10/12 mx-auto text-base pt-20'>
+      <div className=''>
+      <DataTable
+      title="Top 10 Blog"
+      columns={columns}
+      data={tableData}
     />
-        </div>
-    );
+      </div>
+    </div>
+  );
+
 };
 
 export default FeaturedBlogs;

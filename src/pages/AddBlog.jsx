@@ -26,6 +26,7 @@ const AddBlog = () => {
         const bloggerId = user?.uid;
         const bloggerName = user?.displayName;
         const bloggerEmail = user?.email;
+        const bloggerImage = user?.photoURL;
         const blogPostTime = date.toISOString();
         const newBlog = {blogTitle, blogImage, category, shortDescription, longDescription, bloggerId, bloggerName, bloggerEmail, blogPostTime};
         console.log(newBlog);
