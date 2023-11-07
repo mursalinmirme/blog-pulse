@@ -2,9 +2,18 @@ import { Button } from "@mui/material";
 import useAuth from "../hooks/useAuth";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
 const AddBlog = () => {
     const { user } = useAuth();
     console.log(user?.uid);
+    const category = useQuery({
+        queryKey: ['categories'],
+        queryFn: async() => {
+            const cateFatch = await axios.get('http://localhost:5000/categories');
+            const categori = await cateFatch.data;
+            return categori;
+        }
+    });
     const handleAddBlog = (e) => {
         e.preventDefault();
         const date = new Date();
@@ -51,12 +60,9 @@ const AddBlog = () => {
                         <label className="mb-1" htmlFor="">Category</label>
                         <select className="border px-3 py-2.5 outline-none" name="category" id="" required>
                             <option value="">Select category</option>       
-                            <option value="travel destinations">Travel Destinations</option>       
-                            <option value="festivals and celebrations">Festivals and Celebrations</option>       
-                            <option value="adventure and exploration">Adventure and Exploration</option>       
-                            <option value="art and creativity">Art and Creativity</option>       
-                            <option value="tech reviews">Tech Reviews</option>       
-                            <option value="technology trends">Technology Trends</option>       
+                            {
+                                category.data?.map(cate => <option key={cate._id} value={cate.name}>{cate.name}</option>)
+                            }     
                         </select>
                     </div>
                     <div className="flex flex-col mt-7">
