@@ -22,7 +22,7 @@ const AllBlogs = () => {
     })
 
 
-    const category = useQuery({
+    const {data: category, isLoading:categoriLoding} = useQuery({
         queryKey: ['categories'],
         queryFn: async() => {
             const cateFatch = await axios.get('http://localhost:5000/categories');
@@ -31,7 +31,7 @@ const AllBlogs = () => {
         }
     });
     // search system
-        const {data: searchResult} = useQuery({
+        const {data: searchResult, isLoading: searchLoading} = useQuery({
             queryKey: [searchVal, setSearchVal],
             queryFn: async() => {
                 if(searchVal){
@@ -55,7 +55,12 @@ const AllBlogs = () => {
         setSearchVal('');
         setcategoryValue(event.target.value)
     }
-
+    if(searchLoading){
+        return <div className="flex justify-center items-center h-96"><h3 className="text-3xl">Loading...</h3></div>
+    }
+    if(isLoading){
+        return <div className="flex justify-center items-center h-96"><h3 className="text-3xl">Loading...</h3></div>
+    }
     return (
         <div className="mt-20 w-10/12 mx-auto">
             <div className="flex items-center justify-between">
@@ -75,7 +80,7 @@ const AllBlogs = () => {
                 >
                     <MenuItem value={'All'}>All</MenuItem>
                     {
-                        category?.data?.map((cate, indx) => {
+                        category?.map((cate, indx) => {
                             return <MenuItem key={cate._id} value={cate.name}>{cate.name}</MenuItem>
                         })
                     }
@@ -83,11 +88,18 @@ const AllBlogs = () => {
                 {/* </FormControl> */}
                </div>
             </div>
-            <div className="grid grid-cols-3 gap-6 mt-10">
-                {
+            {
+                    showBlogs.length > 0 ?
+                    <div className="grid grid-cols-3 gap-6 mt-10">
+                    {   
                     showBlogs?.map(singleBlog => <SingleBlogForAllBlog key={singleBlog._id} singleBlog={singleBlog}></SingleBlogForAllBlog>)
-                }
-            </div>
+                    
+                    }
+                   </div> :
+                   <div className="flex justify-center items-center w-full h-96"><h3 className="text-3xl w-full text-center">No, data found to your search result!</h3></div>
+            }
+            
+           
         </div>
     );
 };

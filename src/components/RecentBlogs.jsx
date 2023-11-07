@@ -19,7 +19,9 @@ const RecentBlogs = () => {
             })
         }
     })
-    console.log(data);
+    if(isLoading){
+        return <div className="flex justify-center items-center h-96"><h3 className="text-3xl">Loading...</h3></div>
+    }
 
     return (
         <div className="max-w-screen-2xl mx-auto">

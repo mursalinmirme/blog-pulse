@@ -15,6 +15,7 @@ import AuthProvider from './auth/AuthProvider'
 import ErrorPage from './pages/ErrorPage'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import BlogDetails from './pages/BlogDetails'
+import PrivateRouter from './auth/PrivateRouter'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -55,7 +56,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/blogs/:id',
-        element: <BlogDetails></BlogDetails>,
+        element: <PrivateRouter><BlogDetails></BlogDetails></PrivateRouter>,
       },
     ]
   }
