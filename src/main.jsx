@@ -39,8 +39,8 @@ const router = createBrowserRouter([
         element: <AddBlog></AddBlog>,
       },
       {
-        path: '/update-blog',
-        element: <UpdateBlog></UpdateBlog>,
+        path: '/update-blog/:id',
+        element: <PrivateRouter><UpdateBlog></UpdateBlog></PrivateRouter>,
       },
       {
         path: '/all-blogs',
@@ -58,6 +58,7 @@ const router = createBrowserRouter([
         path: '/blogs/:id',
         element: <PrivateRouter><BlogDetails></BlogDetails></PrivateRouter>,
       },
+
     ]
   }
 ]);

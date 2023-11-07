@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
 
@@ -63,6 +63,13 @@ const BlogDetails = () => {
                   <h3 className="mt-3 text-lg font-semibold">Description:</h3>
                   <p className="">{longDescription}</p>
                   </div>
+                  {
+                    user?.email === bloggerEmail && <div>
+                    <Link to={`/update-blog/${_id}`}>
+                        <Button style={{background: '#588157', color: '#FFFFFF', marginTop: '25px', padding: '10px 25px', fontWeight: '500'}} variant="solid">Update</Button>
+                    </Link>
+                  </div>
+                  }
                 </div>
                 {/* externl details or add */}
                 <div className="col-span-1 bg-gray-100">
