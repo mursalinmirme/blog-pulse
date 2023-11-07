@@ -14,6 +14,7 @@ import FeaturedBlogs from './pages/FeaturedBlogs'
 import AuthProvider from './auth/AuthProvider'
 import ErrorPage from './pages/ErrorPage'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import BlogDetails from './pages/BlogDetails'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: '/featured-blogs',
         element: <FeaturedBlogs></FeaturedBlogs>,
+      },
+      {
+        path: '/blogs/:id',
+        element: <BlogDetails></BlogDetails>,
       },
     ]
   }
