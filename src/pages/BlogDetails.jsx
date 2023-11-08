@@ -7,6 +7,8 @@ import "react-photo-view/dist/react-photo-view.css";
 import { Link, useParams } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../useHooks/useAxiosSecure";
+import Skeleton from "react-loading-skeleton";
+import BlogDetailsSkeleton from "./BlogDetailsSkeleton";
 const BlogDetails = () => {
   const { user } = useAuth();
   const { id } = useParams();
@@ -33,11 +35,11 @@ const BlogDetails = () => {
   });
   console.log("comments under this post", getPostComment);
   if (currentBlogLoading) {
-    return <h3>Loading...</h3>;
+    return <BlogDetailsSkeleton></BlogDetailsSkeleton>
   }
-  if (getPostCommentLoading) {
-    return <h3>Loading...</h3>;
-  }
+  // if (getPostCommentLoading) {
+  //   return <h3>Loading...</h3>;
+  // }
   const {
     _id,
     blogTitle,
@@ -84,10 +86,13 @@ const BlogDetails = () => {
         <div className="col-span-3">
           <PhotoProvider>
             <PhotoView src={blogImage}>
-              <img className="h-[500px] w-full" src={blogImage} alt="" />
+            <img className="h-[500px] w-full" src={blogImage} alt="" />
             </PhotoView>
           </PhotoProvider>
           <h3 className="mt-7 text-3xl font-semibold">{blogTitle}</h3>
+          <div className="font-medium mt-7">
+            <span className="px-7 inline py-3 bg-[#A3B18A]">{category}</span>
+            </div>
           <div className="mt-8">
             <h3 className="mt-3 text-lg  font-semibold">Summary:</h3>
             <p className="">{shortDescription}</p>

@@ -3,6 +3,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import DataTable from "react-data-table-component";
 import "./FeaturedBlogs.css";
+import FeaturedBlogsSkeleton from "../components/FeaturedBlogsSkeleton";
 
 const FeaturedBlogs = () => {
   const { data, isLoading } = useQuery({
@@ -15,11 +16,7 @@ const FeaturedBlogs = () => {
     },
   });
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center w-full h-96">
-        <h3 className="text-4xl">Table Loading....</h3>
-      </div>
-    );
+    return <FeaturedBlogsSkeleton></FeaturedBlogsSkeleton>
   }
   let tableData = [];
   for (let i = 0; i < data.length; i++) {
@@ -62,8 +59,8 @@ const FeaturedBlogs = () => {
 
   return (
     <motion.div
-      className="w-10/12 mx-auto text-base pt-20"
-      initial={{ opacity: 0, scale: 0.5 }}
+      className="w-10/12 mx-auto text-base pt-10"
+      initial={{ opacity: 0, scale: 1 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
     >

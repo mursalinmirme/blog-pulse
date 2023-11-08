@@ -3,6 +3,7 @@ import NewsLetter from "../components/NewsLetter";
 import RecentBlogs from "../components/RecentBlogs";
 import TrandingTopics from "../components/TrandingTopics";
 import TopBlogger from "../components/TopBlogger";
+import BlogDetailsSkeleton from "./BlogDetailsSkeleton";
 
 const Home = () => {
     return (
