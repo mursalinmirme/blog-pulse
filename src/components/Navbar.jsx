@@ -9,35 +9,38 @@ import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import axios from "axios";
 import PropTypes from "prop-types";
 import * as React from "react";
+import toast from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import toast from "react-hot-toast";
-import axios from "axios";
 
 const drawerWidth = 240;
 const Navbar = (props) => {
   const { user, userLogout } = useAuth();
-  console.log('user from navbar', user);
+  console.log("user from navbar", user);
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleUserLogOUt = () => {
-    const toastId = toast.loading('Logouting...')
-    const lastUser = {email: user?.email}
+    const toastId = toast.loading("Logouting...");
+    const lastUser = { email: user?.email };
     userLogout()
-    .then(() => {
-      axios.post('http://localhost:5000/logout', lastUser, {withCredentials: true})
-      .then(res => {
-        console.log(res.data);
+      .then(() => {
+        axios
+          .post("https://blog-pulse-server.vercel.app/logout", lastUser, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log(res.data);
+          });
+        toast.success("Registration successfully", { id: toastId });
       })
-      toast.success('Registration successfully', {id : toastId});
-    })
-    .catch(err => {
-      toast.error(err.message, {id : toastId});
-    })
-  }
+      .catch((err) => {
+        toast.error(err.message, { id: toastId });
+      });
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -47,27 +50,67 @@ const Navbar = (props) => {
     <>
       <NavLink to="/">
         {({ isActive }) => (
-          <span className={isActive ? "bg-[#DAD7CD] font-semibold rounded text-black px-2 py-1" : ""}>Home</span>
+          <span
+            className={
+              isActive
+                ? "bg-[#DAD7CD] font-semibold rounded text-black px-2 py-1"
+                : ""
+            }
+          >
+            Home
+          </span>
         )}
       </NavLink>
       <NavLink to="/add-blog">
         {({ isActive }) => (
-          <span className={isActive ? "bg-[#DAD7CD] font-semibold rounded text-black px-2 py-1" : ""}>Add Blog</span>
+          <span
+            className={
+              isActive
+                ? "bg-[#DAD7CD] font-semibold rounded text-black px-2 py-1"
+                : ""
+            }
+          >
+            Add Blog
+          </span>
         )}
       </NavLink>
       <NavLink to="/all-blogs">
         {({ isActive }) => (
-          <span className={isActive ? "bg-[#DAD7CD] font-semibold rounded text-black px-2 py-1" : ""}>All Blogs</span>
+          <span
+            className={
+              isActive
+                ? "bg-[#DAD7CD] font-semibold rounded text-black px-2 py-1"
+                : ""
+            }
+          >
+            All Blogs
+          </span>
         )}
       </NavLink>
       <NavLink to="/featured-blogs">
         {({ isActive }) => (
-          <span className={isActive ? "bg-[#DAD7CD] font-semibold rounded text-black px-2 py-1" : ""}>Featured Blogs</span>
+          <span
+            className={
+              isActive
+                ? "bg-[#DAD7CD] font-semibold rounded text-black px-2 py-1"
+                : ""
+            }
+          >
+            Featured Blogs
+          </span>
         )}
       </NavLink>
       <NavLink to="/wishlist">
         {({ isActive }) => (
-          <span className={isActive ? "bg-[#DAD7CD] font-semibold rounded text-black px-2 py-1" : ""}>Wishlist</span>
+          <span
+            className={
+              isActive
+                ? "bg-[#DAD7CD] font-semibold rounded text-black px-2 py-1"
+                : ""
+            }
+          >
+            Wishlist
+          </span>
         )}
       </NavLink>
     </>
@@ -75,24 +118,42 @@ const Navbar = (props) => {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography style={{fontSize: '20px', fontWeight: 700, textTransform: 'uppercase'}} variant="h5" sx={{ my: 2 }}>
+      <Typography
+        style={{
+          fontSize: "20px",
+          fontWeight: 700,
+          textTransform: "uppercase",
+        }}
+        variant="h5"
+        sx={{ my: 2 }}
+      >
         BlogPulse
       </Typography>
       <Divider />
       <List>
         <div className="flex flex-col space-y-3">{navItems}</div>
         <div className="flex flex-col">
-          {
-             user ? <>
-                   <img className="w-20 h-20 mt-5 rounded-full mx-auto" src={user?.photoURL} alt="" />
-                   <Button style={{marginTop: '15px'}} variant="outline"><Link>Logout</Link></Button>
-                   </>
-                  :
-                   <>
-                    <Button style={{border: '1px solid white'}} variant="outline"><Link to={'/signup'}>Sign Up</Link></Button>
-                    <Button style={{border: '1px solid white'}} variant="outline"><Link to={'/signin'}>Sign In</Link></Button> 
-                   </>
-          }
+          {user ? (
+            <>
+              <img
+                className="w-20 h-20 mt-5 rounded-full mx-auto"
+                src={user?.photoURL}
+                alt=""
+              />
+              <Button style={{ marginTop: "15px" }} variant="outline">
+                <Link>Logout</Link>
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button style={{ border: "1px solid white" }} variant="outline">
+                <Link to={"/signup"}>Sign Up</Link>
+              </Button>
+              <Button style={{ border: "1px solid white" }} variant="outline">
+                <Link to={"/signin"}>Sign In</Link>
+              </Button>
+            </>
+          )}
         </div>
       </List>
     </Box>
@@ -102,48 +163,85 @@ const Navbar = (props) => {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-        <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <div style={{maxWidth: '1536px', width: '1536px', position: 'relative'}}  className="max-w-screen-2xl mx-auto border p-5">
-      <AppBar style={{background: '#3A5A40', maxWidth: '1536px',position: 'absolute',padding: '11px 0'}} component="nav">
-        <Toolbar>
-          <IconButton
-            style={{color: '#ffffff'}}
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { md: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            style={{textTransform: 'uppercase', fontWeight: '700'}}
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", md: "block" } }}
-          >
-            BlogPulse
-          </Typography>
-          <Box className="hidden lg:block">
-            <div className="flex items-center gap-64">
-              <div className="flex gap-8">{navItems}</div>
-              <div className="flex items-center gap-5">
-              {
-                user ? <>
-                   <img className="w-11 h-11 rounded-full" src={user?.photoURL} alt="" />
-                   <Button onClick={handleUserLogOUt} style={{background: '#FFFFFF', color: '#344E41', fontWeight: '600', height: '45px', padding: '0 20px'}} variant="solid">Logout</Button>
-                   </>
-                  :
-                   <>
-                    <Button style={{border: '1px solid #DAD7CD'}} variant="outline"><Link to={'/signup'}>Sign Up</Link></Button>
-                    <Button style={{border: '1px solid #DAD7CD'}} variant="outline"><Link to={'/signin'}>Sign In</Link></Button> 
-                   </>
-                }
+      <div
+        style={{ maxWidth: "1536px", width: "1536px", position: "relative" }}
+        className="max-w-screen-2xl mx-auto border p-5"
+      >
+        <AppBar
+          style={{
+            background: "#3A5A40",
+            maxWidth: "1536px",
+            position: "absolute",
+            padding: "11px 0",
+          }}
+          component="nav"
+        >
+          <Toolbar>
+            <IconButton
+              style={{ color: "#ffffff" }}
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { md: "none" } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              style={{ textTransform: "uppercase", fontWeight: "700" }}
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: "none", md: "block" } }}
+            >
+              BlogPulse
+            </Typography>
+            <Box className="hidden lg:block">
+              <div className="flex items-center gap-64">
+                <div className="flex gap-8">{navItems}</div>
+                <div className="flex items-center gap-5">
+                  {user ? (
+                    <>
+                      <img
+                        className="w-11 h-11 rounded-full"
+                        src={user?.photoURL}
+                        alt=""
+                      />
+                      <Button
+                        onClick={handleUserLogOUt}
+                        style={{
+                          background: "#FFFFFF",
+                          color: "#344E41",
+                          fontWeight: "600",
+                          height: "45px",
+                          padding: "0 20px",
+                        }}
+                        variant="solid"
+                      >
+                        Logout
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Button
+                        style={{ border: "1px solid #DAD7CD" }}
+                        variant="outline"
+                      >
+                        <Link to={"/signup"}>Sign Up</Link>
+                      </Button>
+                      <Button
+                        style={{ border: "1px solid #DAD7CD" }}
+                        variant="outline"
+                      >
+                        <Link to={"/signin"}>Sign In</Link>
+                      </Button>
+                    </>
+                  )}
+                </div>
               </div>
-            </div>
-          </Box>
-        </Toolbar>
-      </AppBar>
+            </Box>
+          </Toolbar>
+        </AppBar>
       </div>
       <nav>
         <Drawer
@@ -166,7 +264,6 @@ const Navbar = (props) => {
         </Drawer>
       </nav>
     </Box>
-
   );
 };
 

@@ -5,6 +5,7 @@ import bloggerTwo from '../assets/bloggerTwo.jpg';
 import bloggerThree from '../assets/bloggerThree.jpg';
 import bloggerFour from '../assets/bloggerFour.jpg';
 import Slider from "react-slick";
+import { motion } from "framer-motion"
 import ReactStarsRating from 'react-awesome-stars-rating';
 const TopBlogger = () => {
     const settings = {
@@ -43,7 +44,11 @@ const TopBlogger = () => {
           ]
       };
     return (
-        <div className="w-full lg:w-10/12 mx-auto">
+        <motion.div className="w-full lg:w-10/12 mx-auto"
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        >
             <h3 className="text-center mt-16 text-2xl lg:text-3xl font-semibold">Top Bloggers Spotlight</h3>
             <p className="text-center mt-4 text-sm w-11/12 md:w-9/12 lg:w-1/2 leading-relaxed mx-auto">Celebrating the Voices That Inspire. Dive into the world of our standout bloggers as we shine a light on their remarkable journeys, captivating stories.</p>
             <div className="mt-10">
@@ -103,7 +108,7 @@ const TopBlogger = () => {
            
             </Slider>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

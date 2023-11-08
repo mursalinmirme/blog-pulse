@@ -1,8 +1,13 @@
 import { FiFacebook, FiGithub, FiInstagram, FiLinkedin, FiTwitter } from 'react-icons/fi';
 import footerBg from '../assets/footerbg.jpg';
+import { motion } from "framer-motion"
 const Footer = () => {
   return (
-    <div className="mt-20 max-w-screen-2xl mx-auto relative">
+    <motion.div className="mt-20 max-w-screen-2xl mx-auto relative"
+    initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+    >
       <img className='h-[1000px] lg:h-[400px] w-full object-cover' src={footerBg} alt="" />
       <div className='w-full h-full bg-[#3a5a40ea] absolute top-0 left-0'>
         <div className='w-10/12 mx-auto flex flex-col lg:flex-row justify-between gap-7 pt-24'>
@@ -62,7 +67,7 @@ const Footer = () => {
            </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

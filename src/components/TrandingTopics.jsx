@@ -4,6 +4,8 @@ import trandingThree from "../assets/trandingThree.jpg";
 import trandingFour from "../assets/trandingFour.jpg";
 import { FiArrowRight } from 'react-icons/fi';
 import Slider from 'react-slick';
+import { motion } from "framer-motion"
+
 const TrandingTopics = () => {
     const settings = {
         dots: true,
@@ -41,7 +43,11 @@ const TrandingTopics = () => {
           ]
       };
     return (
-        <div className="mt-20 w-11/12 lg:w-10/12 mx-auto">
+        <motion.div className="mt-20 w-11/12 lg:w-10/12 mx-auto"
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        >
             <h3 className="text-2xl md:text-3xl text-center font-semibold">Tranding Topics</h3>
             <p className="text-sm mt-3 w-11/12 md:w-9/12 lg:w-1/2 mx-auto px-5 leading-relaxed text-center">Dive into the latest trends and hot discussions in the blogosphere with our Trending Topics section.</p>
             <div className="mt-10">
@@ -107,7 +113,7 @@ const TrandingTopics = () => {
            
             </Slider>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

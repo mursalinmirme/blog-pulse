@@ -1,7 +1,12 @@
 import bannerBg from '../assets/bannerBg.jpg';
+import { motion } from "framer-motion"
 const Banner = () => {
     return (
-        <div className='max-w-screen-2xl mx-auto'>
+        <motion.div className='max-w-screen-2xl mx-auto'
+        initial={{ opacity: 0, scale: 1 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6 }}
+        >
             <div className='relative'>
             <img className='h-[650px] md:h-[550px] lg:h-auto object-cover' src={bannerBg} alt="" />
             <div className='absolute flex justify-center items-center w-full h-full top-0 left-0 bg-[#58815795]'>
@@ -16,7 +21,7 @@ const Banner = () => {
                 </div>
             </div>
         </div>
-        </div>
+        </motion.div>
     );
 };
 
