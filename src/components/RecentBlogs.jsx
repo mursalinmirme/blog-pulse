@@ -2,6 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import SingleFeaturedBlog from "./SingleFeaturedBlog";
 import { motion } from "framer-motion"
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+import BlogSkeleton from "./BlogSkeleton";
 const RecentBlogs = () => {
   const date = new Date();
   const blogPostTime = date.toISOString();
@@ -22,19 +25,11 @@ const RecentBlogs = () => {
     },
   });
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-96">
-        <h3 className="text-3xl">Loading...</h3>
-      </div>
-    );
+    return <BlogSkeleton></BlogSkeleton>
   }
 
   return (
-    <motion.div className="max-w-screen-2xl mx-auto"
-    initial={{ opacity: 0, scale: 0.5 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.5 }}
-    >
+    <div className="max-w-screen-2xl mx-auto">
       <div className="mt-14 w-11/12 md:w-10/12 mx-auto">
         <h3 className="text-center font-bold text-2xl lg:text-3xl font-fontNoto text-[#344E41]">
           Recent Blog Features
@@ -49,7 +44,7 @@ const RecentBlogs = () => {
           ))}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

@@ -16,6 +16,7 @@ import ErrorPage from './pages/ErrorPage'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import BlogDetails from './pages/BlogDetails'
 import PrivateRouter from './auth/PrivateRouter'
+import { SkeletonTheme } from 'react-loading-skeleton'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -65,10 +66,12 @@ const router = createBrowserRouter([
 const queryClient  = new QueryClient();
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <SkeletonTheme baseColor="#A3B18A" highlightColor="#3A5A40">
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <RouterProvider router={router} />
       </AuthProvider>
     </QueryClientProvider>
+    </SkeletonTheme>
   </React.StrictMode>,
 )

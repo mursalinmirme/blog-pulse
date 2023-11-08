@@ -6,6 +6,7 @@ import { FiBookmark } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { motion } from "framer-motion"
+import WishlistSkeleton from "../components/WishlistSkeleton";
 
 const WishList = () => {
   const { user } = useAuth();
@@ -34,10 +35,15 @@ const WishList = () => {
         console.log(err.message);
       });
   };
+  if(isLoading){
+    return <WishlistSkeleton></WishlistSkeleton>
+  }
   return (
     <div className="mt-20 w-10/12 mx-auto">
       <h2 className="text-center text-2xl font-semibold">My Saved Wishlist</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+      {
+        data?.lenght > 0 ? 
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
         {data?.map((list) => {
           return (
             <motion.div key={list._id} className="border p-5 rounded-lg"
@@ -82,7 +88,9 @@ const WishList = () => {
             </motion.div>
           );
         })}
-      </div>
+      </div> :
+      <div className="w-full h-60 flex justify-center items-center"><h3 className="text-center text-xl font-semibold">You dont have any stored wishlist</h3></div>
+      }
     </div>
   );
 };
