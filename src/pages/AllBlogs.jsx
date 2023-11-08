@@ -2,9 +2,8 @@ import { Button, MenuItem, Select } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
-import SingleBlogForAllBlog from "../components/SingleBlogForAllBlog";
-import BlogSkeleton from "../components/BlogSkeleton";
 import AllBlogSkeleton from "../components/AllBlogSkeleton";
+import SingleBlogForAllBlog from "../components/SingleBlogForAllBlog";
 
 const AllBlogs = () => {
   const [categoryValue, setcategoryValue] = useState("All");
@@ -61,10 +60,10 @@ const AllBlogs = () => {
     setcategoryValue(event.target.value);
   };
   if (searchLoading) {
-    return <AllBlogSkeleton></AllBlogSkeleton>
+    return <AllBlogSkeleton></AllBlogSkeleton>;
   }
   if (isLoading) {
-    return <AllBlogSkeleton></AllBlogSkeleton>
+    return <AllBlogSkeleton></AllBlogSkeleton>;
   }
   return (
     <div className="mt-20 w-10/12 mx-auto">

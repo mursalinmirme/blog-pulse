@@ -1,10 +1,10 @@
 import { Button } from "@mui/material";
 import axios from "axios";
+import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { FiBookmark } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import { motion } from "framer-motion"
 
 const SingleBlogForAllBlog = ({ singleBlog }) => {
   const { _id, blogTitle, blogImage, category, shortDescription } = singleBlog;
@@ -33,10 +33,11 @@ const SingleBlogForAllBlog = ({ singleBlog }) => {
   };
 
   return (
-    <motion.div className="border p-5 rounded-lg"
-    initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
+    <motion.div
+      className="border p-5 rounded-lg"
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
     >
       <img className="rounded-md" src={blogImage} alt="" />
       <div className="mt-4">

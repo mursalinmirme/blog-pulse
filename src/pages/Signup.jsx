@@ -1,12 +1,12 @@
 import { Button } from "@mui/material";
 import axios from "axios";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import { motion } from "framer-motion"
 
 const Signup = () => {
   const [passwordType, setPasswordType] = useState(false);
@@ -87,10 +87,11 @@ const Signup = () => {
       });
   };
   return (
-    <motion.div className="mt-20 max-w-screen-2xl mx-auto"
-       initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
+    <motion.div
+      className="mt-20 max-w-screen-2xl mx-auto"
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
     >
       <div className="w-11/12 md:w-[550px] px-10 py-10 mx-auto border shadow rounded-xl">
         <p className="text-center text-[#3A5A40]">Welcome</p>

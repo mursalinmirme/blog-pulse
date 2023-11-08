@@ -3,9 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
+import useAxiosSecure from "../useHooks/useAxiosSecure";
 
 const UpdateBlog = () => {
   const { id } = useParams();
+  const axiosSecure = useAxiosSecure();
   const categoryItem = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
@@ -20,10 +22,7 @@ const UpdateBlog = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["updateBlog"],
     queryFn: async () => {
-      const getUpdateBlog = await axios.get(
-        `https://blog-pulse-server.vercel.app/update-blog?blogid=${id}`,
-        { withCredentials: true }
-      );
+      const getUpdateBlog = await axiosSecure.get(`/update-blog?blogid=${id}`);
       return getUpdateBlog.data;
     },
   });

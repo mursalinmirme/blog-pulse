@@ -1,9 +1,9 @@
 import { Button } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
-import { motion } from "framer-motion"
 
 const AddBlog = () => {
   const { user } = useAuth();
@@ -60,10 +60,11 @@ const AddBlog = () => {
       });
   };
   return (
-    <motion.div className="mt-20 max-w-screen-2xl mx-auto"
+    <motion.div
+      className="mt-20 max-w-screen-2xl mx-auto"
       initial={{ opacity: 0, scale: 0.5 }}
       animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }} 
+      transition={{ duration: 0.5 }}
     >
       <div className="w-full md:w-10/12 lg:w-1/2 px-10 py-8 mx-auto border shadow rounded-xl">
         <h3 className="text-center mt-3 text-[#3A5A40] text-2xl font-semibold font-fontNoto">{`Make a New Blog`}</h3>

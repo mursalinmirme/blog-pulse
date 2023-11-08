@@ -2,24 +2,27 @@ import { Button } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
 import { Link, useParams } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import 'react-photo-view/dist/react-photo-view.css';
-import { PhotoProvider, PhotoView } from "react-photo-view";
+import useAxiosSecure from "../useHooks/useAxiosSecure";
 const BlogDetails = () => {
   const { user } = useAuth();
   const { id } = useParams();
+  const axiosSecure = useAxiosSecure();
   const { data: currentItem, isLoading: currentBlogLoading } = useQuery({
     queryKey: ["currentBlogs"],
     queryFn: async () => {
-      const getItem = await axios.get(
-        `https://blog-pulse-server.vercel.app/allblogs/${id}`,
-        { withCredentials: true }
-      );
+      const getItem = await axiosSecure.get(`/allblogs/${id}`);
       return getItem.data;
     },
   });
-  const { data: getPostComment, isLoading: getPostCommentLoading } = useQuery({
+  const {
+    data: getPostComment,
+    isLoading: getPostCommentLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["blogComments"],
     queryFn: async () => {
       const getComments = await axios.get(
@@ -65,6 +68,7 @@ const BlogDetails = () => {
       .then((res) => {
         console.log(res.data);
         if (res.data.acknowledged) {
+          refetch();
           toast.success("Comment posted successfully!", { id: toastId });
         }
       })
@@ -79,9 +83,9 @@ const BlogDetails = () => {
         {/* blog description */}
         <div className="col-span-3">
           <PhotoProvider>
-             <PhotoView src={blogImage}>
-                <img className="h-[500px] w-full" src={blogImage} alt="" />
-             </PhotoView>
+            <PhotoView src={blogImage}>
+              <img className="h-[500px] w-full" src={blogImage} alt="" />
+            </PhotoView>
           </PhotoProvider>
           <h3 className="mt-7 text-3xl font-semibold">{blogTitle}</h3>
           <div className="mt-8">

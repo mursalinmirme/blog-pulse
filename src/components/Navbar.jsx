@@ -32,10 +32,9 @@ const Navbar = (props) => {
           .post("https://blog-pulse-server.vercel.app/logout", lastUser, {
             withCredentials: true,
           })
-          .then((res) => {
-            console.log(res.data);
+          .then(() => {
+            toast.success("Logout Successfully", { id: toastId });
           });
-        toast.success("Registration successfully", { id: toastId });
       })
       .catch((err) => {
         toast.error(err.message, { id: toastId });

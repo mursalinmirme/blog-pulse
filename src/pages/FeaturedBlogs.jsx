@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { motion } from "framer-motion";
 import DataTable from "react-data-table-component";
 import "./FeaturedBlogs.css";
-import { motion } from "framer-motion"
 
 const FeaturedBlogs = () => {
   const { data, isLoading } = useQuery({
@@ -61,10 +61,11 @@ const FeaturedBlogs = () => {
   ];
 
   return (
-    <motion.div className="w-10/12 mx-auto text-base pt-20"
-    initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
+    <motion.div
+      className="w-10/12 mx-auto text-base pt-20"
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
     >
       <div className="">
         <DataTable title="Top 10 Blog" columns={columns} data={tableData} />
