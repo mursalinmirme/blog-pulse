@@ -75,7 +75,7 @@ const Signup = () => {
     }
     return (
         <div className="mt-20 max-w-screen-2xl mx-auto">
-            <div className="w-[550px] px-10 py-10 mx-auto border shadow rounded-xl">
+            <div className="w-11/12 md:w-[550px] px-10 py-10 mx-auto border shadow rounded-xl">
                 <p className="text-center text-[#3A5A40]">Welcome</p>
                 <h3 className="text-center mt-3 text-xl font-semibold font-fontNoto">{`Let's create an account`}</h3>
                 <form onSubmit={handleSignUp} className="mt-7" action="">

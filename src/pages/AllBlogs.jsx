@@ -63,15 +63,15 @@ const AllBlogs = () => {
     }
     return (
         <div className="mt-20 w-10/12 mx-auto">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col md:flex-row items-center justify-between">
                <h3 className="text-2xl font-semibold">All Blogs </h3>
-               <div className="flex relative">
+               <div className="flex relative mt-5 md:mt-0">
                  <form onSubmit={handleSearchSystem}>
-                    <input className="px-4 py-3 border border-gray-500 w-96 outline-none" type="text" name="search" id="" placeholder="Search a blog" />
+                    <input className="px-4 py-3 border border-gray-500 w-80 md:w-96 outline-none" type="text" name="search" id="" placeholder="Search a blog" />
                     <Button type="submit" style={{background: '#A3B18A', color: 'white', borderRadius: '0', position: 'absolute', right: '0', top: '0', height: '100%', paddign: '-2px'}} className="w-20 flex justify-center items-center">Search</Button>
                  </form>
                </div>
-               <div>
+               <div className="mt-5 md:mt-0">
                {/* <FormControl sx={{ m: 1, width: 'auto' }}> */}
                 <Select
                     value={categoryValue}
@@ -90,7 +90,7 @@ const AllBlogs = () => {
             </div>
             {
                     showBlogs.length > 0 ?
-                    <div className="grid grid-cols-3 gap-6 mt-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-5 md:mt-10">
                     {   
                     showBlogs?.map(singleBlog => <SingleBlogForAllBlog key={singleBlog._id} singleBlog={singleBlog}></SingleBlogForAllBlog>)
                     

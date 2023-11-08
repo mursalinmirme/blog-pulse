@@ -38,10 +38,18 @@ const SingleBlogForAllBlog = ({singleBlog}) => {
                             <Link to={`/blogs/${_id}`}>
                             <Button variant="solid" style={{background: '#588157', color: 'white'}} className="bg-[#3A5A40] px-5 py-2 text-white rounded-md">Read More</Button>
                             </Link>
-                            <Button onClick={handleWishlist} style={{border: '1px solid #3A5A40'}} variant="outline" className="bg-[#588157] flex gap-2 items-center px-5 font-medium py-2 text-white rounded-md">
+                            {
+                                user ? <Button onClick={handleWishlist} style={{border: '1px solid #3A5A40'}} variant="outline" className="bg-[#588157] flex gap-2 items-center px-5 font-medium py-2 text-white rounded-md">
                                 <FiBookmark></FiBookmark>
                                 <span className="text-[#3A5A40] font-medium">Wishlist</span>
-                            </Button>
+                                </Button> :
+                                <Link to={'/signin'}>
+                                <Button style={{border: '1px solid #3A5A40'}} variant="outline" className="bg-[#588157] flex gap-2 items-center px-5 font-medium py-2 text-white rounded-md">
+                                <FiBookmark></FiBookmark>
+                                <span className="text-[#3A5A40] font-medium">Wishlist</span>
+                                </Button>
+                                </Link>
+                            }
                         </div>
                     </div>
                 </div>

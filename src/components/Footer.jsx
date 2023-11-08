@@ -3,9 +3,9 @@ import footerBg from '../assets/footerbg.jpg';
 const Footer = () => {
   return (
     <div className="mt-20 max-w-screen-2xl mx-auto relative">
-      <img className='h-[400px] w-full object-cover' src={footerBg} alt="" />
+      <img className='h-[1000px] lg:h-[400px] w-full object-cover' src={footerBg} alt="" />
       <div className='w-full h-full bg-[#3a5a40ea] absolute top-0 left-0'>
-        <div className='w-10/12 mx-auto flex justify-between gap-7 pt-24'>
+        <div className='w-10/12 mx-auto flex flex-col lg:flex-row justify-between gap-7 pt-24'>
           {/* brand and social icons */}
            <div className='text-white flex-1'>
               <h2 className='text-2xl uppercase font-fontNoto font-bold'>Blog<span className='text-[#ccf97f]'>Pulse</span></h2>

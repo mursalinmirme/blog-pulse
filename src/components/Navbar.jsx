@@ -47,27 +47,27 @@ const Navbar = (props) => {
     <>
       <NavLink to="/">
         {({ isActive }) => (
-          <span className={isActive ? "active" : ""}>Home</span>
+          <span className={isActive ? "bg-[#DAD7CD] font-semibold rounded text-black px-2 py-1" : ""}>Home</span>
         )}
       </NavLink>
       <NavLink to="/add-blog">
         {({ isActive }) => (
-          <span className={isActive ? "active" : ""}>Add Blog</span>
+          <span className={isActive ? "bg-[#DAD7CD] font-semibold rounded text-black px-2 py-1" : ""}>Add Blog</span>
         )}
       </NavLink>
       <NavLink to="/all-blogs">
         {({ isActive }) => (
-          <span className={isActive ? "active" : ""}>All Blogs</span>
+          <span className={isActive ? "bg-[#DAD7CD] font-semibold rounded text-black px-2 py-1" : ""}>All Blogs</span>
         )}
       </NavLink>
       <NavLink to="/featured-blogs">
         {({ isActive }) => (
-          <span className={isActive ? "active" : ""}>Featured Blogs</span>
+          <span className={isActive ? "bg-[#DAD7CD] font-semibold rounded text-black px-2 py-1" : ""}>Featured Blogs</span>
         )}
       </NavLink>
       <NavLink to="/wishlist">
         {({ isActive }) => (
-          <span className={isActive ? "active" : ""}>Wishlist</span>
+          <span className={isActive ? "bg-[#DAD7CD] font-semibold rounded text-black px-2 py-1" : ""}>Wishlist</span>
         )}
       </NavLink>
     </>
@@ -112,7 +112,7 @@ const Navbar = (props) => {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+            sx={{ mr: 2, display: { md: "none" } }}
           >
             <MenuIcon />
           </IconButton>
@@ -120,7 +120,7 @@ const Navbar = (props) => {
             style={{textTransform: 'uppercase', fontWeight: '700'}}
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{ flexGrow: 1, display: { xs: "none", md: "block" } }}
           >
             BlogPulse
           </Typography>
@@ -155,7 +155,7 @@ const Navbar = (props) => {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: "block", sm: "none" },
+            display: { xs: "block", md: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,

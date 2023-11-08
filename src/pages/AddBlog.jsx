@@ -46,7 +46,7 @@ const AddBlog = () => {
     }
     return (
         <div className="mt-20 max-w-screen-2xl mx-auto">
-            <div className="w-1/2 px-10 py-8 mx-auto border shadow rounded-xl">
+            <div className="w-full md:w-10/12 lg:w-1/2 px-10 py-8 mx-auto border shadow rounded-xl">
                 <h3 className="text-center mt-3 text-[#3A5A40] text-2xl font-semibold font-fontNoto">{`Make a New Blog`}</h3>
                 <form onSubmit={handleAddBlog} className="mt-10" action="">
                     <div className="flex flex-col">

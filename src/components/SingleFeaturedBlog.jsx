@@ -1,9 +1,26 @@
 import { Button } from "@mui/material";
 import { FiBookmark } from 'react-icons/fi';
 import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import axios from "axios";
+import toast from "react-hot-toast";
 const SingleFeaturedBlog = ({blog}) => {
+    const { user } = useAuth();
     const {_id, blogTitle, blogImage, category, shortDescription} = blog;
-    console.log('data receive from',blog);
+    const handleWishlist = () => {
+        const newWishList = {blogId:_id, blogTitle, blogImage, category, shortDescription, owner:user?.email};
+        const toastId = toast.loading('wishlisting...');
+        axios.post(`http://localhost:5000/wishlist`, newWishList)
+        .then(res => {
+            if(res.data.acknowledged){
+                toast.success('Wishlist added successfully',{id: toastId})
+            }
+        })
+        .catch(err => {
+            toast.error(err.message,{id: toastId})
+
+        })
+    }
     return (
         <div className="border p-5 rounded-lg">
         <img className="rounded-md" src={blogImage} alt="" />
@@ -17,10 +34,18 @@ const SingleFeaturedBlog = ({blog}) => {
                 <Link to={`/blogs/${_id}`}>
                 <Button variant="solid" style={{background: '#588157', color: 'white'}} className="bg-[#3A5A40] px-5 py-2 text-white rounded-md">Read More</Button>
                 </Link>
-                <Button style={{border: '1px solid #3A5A40'}} variant="outline" className="bg-[#588157] flex gap-2 items-center px-5 font-medium py-2 text-white rounded-md">
+                {
+                    user ? <Button onClick={handleWishlist} style={{border: '1px solid #3A5A40'}} variant="outline" className="bg-[#588157] flex gap-2 items-center px-5 font-medium py-2 text-white rounded-md">
                     <FiBookmark></FiBookmark>
                     <span className="text-[#3A5A40] font-medium">Wishlist</span>
-                </Button>
+                    </Button> :
+                    <Link to={'/signin'}>
+                    <Button style={{border: '1px solid #3A5A40'}} variant="outline" className="bg-[#588157] flex gap-2 items-center px-5 font-medium py-2 text-white rounded-md">
+                    <FiBookmark></FiBookmark>
+                    <span className="text-[#3A5A40] font-medium">Wishlist</span>
+                    </Button>
+                    </Link>
+                }
             </div>
         </div>
     </div>

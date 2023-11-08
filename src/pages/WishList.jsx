@@ -32,7 +32,7 @@ const WishList = () => {
     return (
         <div className="mt-20 w-10/12 mx-auto">
             <h2 className="text-center text-2xl font-semibold">My Saved Wishlist</h2>
-            <div className="grid grid-cols-3 gap-6 mt-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
                 {
                     data?.map(list => {
                         return <div key={list._id} className="border p-5 rounded-lg">

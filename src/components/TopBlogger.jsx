@@ -14,12 +14,38 @@ const TopBlogger = () => {
         autoplay: true,
         autoplaySpeed: 2000,
         slidesToShow: 3,
-        slidesToScroll: 3
+        slidesToScroll: 3,
+        responsive: [
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                infinite: true,
+                dots: true
+              }
+            },
+            {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                initialSlide: 2
+              }
+            },
+            {
+              breakpoint: 480,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+              }
+            }
+          ]
       };
     return (
-        <div className="w-10/12 mx-auto">
-            <h3 className="text-center mt-16 text-3xl font-semibold">Top Bloggers Spotlight</h3>
-            <p className="text-center mt-4 text-sm w-1/2 leading-relaxed mx-auto">Celebrating the Voices That Inspire. Dive into the world of our standout bloggers as we shine a light on their remarkable journeys, captivating stories.</p>
+        <div className="w-full lg:w-10/12 mx-auto">
+            <h3 className="text-center mt-16 text-2xl lg:text-3xl font-semibold">Top Bloggers Spotlight</h3>
+            <p className="text-center mt-4 text-sm w-11/12 md:w-9/12 lg:w-1/2 leading-relaxed mx-auto">Celebrating the Voices That Inspire. Dive into the world of our standout bloggers as we shine a light on their remarkable journeys, captivating stories.</p>
             <div className="mt-10">
             <Slider {...settings}>
             {/* topper 1 */}
