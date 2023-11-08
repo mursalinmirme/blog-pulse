@@ -1,13 +1,15 @@
 import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from 'react-icons/fc'
 import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
+import axios from "axios";
 const Signin = () => {
     const [ passwordType, setPasswordType ] = useState(false);
     const { signinwithEmailandPasswrd, googleSignin } = useAuth();
+    const navigate = useNavigate();
     const handleSignIn = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -17,9 +19,15 @@ const Signin = () => {
         // const newUser = {name, image, email, password};
         const toastId = toast.loading('Signing...')
         signinwithEmailandPasswrd(email, password)
-        .then(() => {
+        .then((res) => {
             // console.log(res);
             toast.success('Login Successfully', {id : toastId});
+            const currentPerson = { email: res.user?.email };
+                axios.post('http://localhost:5000/jwt', currentPerson, {withCredentials: true})
+                .then(() => {
+                    navigate('/')
+                })
+                .catch(err => console.log(err.message))
         })
         .catch(err => {
             if(err.message === 'Firebase: Error (auth/invalid-login-credentials).'){
@@ -31,8 +39,14 @@ const Signin = () => {
     // handle google sign up 
     const handleGoogleSignup = () => {
         googleSignin()
-        .then(() => {
+        .then((response) => {
             toast.success('You are successfully logged in.');
+            const currentPerson = { email: response.user?.email };
+                axios.post('http://localhost:5000/jwt', currentPerson , {withCredentials: true})
+                .then(res => {
+                    navigate('/')
+                })
+                .catch(err => console.log(err.message))
         })
         .catch(err => {
             toast.error(err.message);

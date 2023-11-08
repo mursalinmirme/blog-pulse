@@ -14,6 +14,7 @@ import * as React from "react";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 const drawerWidth = 240;
 const Navbar = (props) => {
@@ -24,8 +25,13 @@ const Navbar = (props) => {
 
   const handleUserLogOUt = () => {
     const toastId = toast.loading('Logouting...')
+    const lastUser = {email: user?.email}
     userLogout()
     .then(() => {
+      axios.post('http://localhost:5000/logout', lastUser, {withCredentials: true})
+      .then(res => {
+        console.log(res.data);
+      })
       toast.success('Registration successfully', {id : toastId});
     })
     .catch(err => {
@@ -102,7 +108,7 @@ const Navbar = (props) => {
       <AppBar style={{background: '#3A5A40', maxWidth: '1536px',position: 'absolute',padding: '11px 0'}} component="nav">
         <Toolbar>
           <IconButton
-            color=""
+            style={{color: '#ffffff'}}
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}

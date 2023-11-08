@@ -1,13 +1,15 @@
 import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from 'react-icons/fc';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { useState } from "react";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
+import axios from "axios";
 const Signup = () => {
     const [ passwordType, setPasswordType ] = useState(false);
     const { signupByemailAndpassowrd, updateNameAndProfile, googleSignin } = useAuth();
+    const navigate = useNavigate();
     // handle create an account
     const handleSignUp = (e) => {
         e.preventDefault();
@@ -38,6 +40,12 @@ const Signup = () => {
             .then(() => {
                 toast.success('Registration successfully', {id : toastId});
                 form.reset();
+                const currentPerson = { email: email };
+                axios.post('http://localhost:5000/jwt', currentPerson , {withCredentials: true})
+                .then(() => {
+                    navigate('/');
+                })
+                .catch(err => console.log(err.message))
             })
             .catch(error => {
                 toast.error(error.message, {id : toastId});
@@ -51,8 +59,15 @@ const Signup = () => {
     // handle google sign up 
     const handleGoogleSignup = () => {
         googleSignin()
-        .then(() => {
+        .then((response) => {
             toast.success('Registration successfully');
+            console.log('###',response.user?.email);
+            const currentPerson = { email: response.user?.email };
+                axios.post('http://localhost:5000/jwt', currentPerson , {withCredentials: true})
+                .then(() => {
+                    navigate('/');
+                })
+                .catch(err => console.log(err.message))
         })
         .catch(err => {
             toast.error(err.message);

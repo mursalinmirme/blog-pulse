@@ -11,7 +11,7 @@ const WishList = () => {
     const {data, isLoading, refetch} = useQuery({
         queryKey: ['getWishList'],
         queryFn: async() => {
-            const getMyWishList = await axios.get(`http://localhost:5000/wishlist?email=${user?.email}`)
+            const getMyWishList = await axios.get(`http://localhost:5000/wishlist?email=${user?.email}`,{withCredentials: true})
             return getMyWishList.data;
         }
     })

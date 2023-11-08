@@ -25,10 +25,10 @@ const RecentBlogs = () => {
 
     return (
         <div className="max-w-screen-2xl mx-auto">
-            <div className="mt-14 w-10/12 mx-auto">
+            <div className="mt-14 w-11/12 md:w-10/12 mx-auto">
             <h3 className="text-center font-bold text-3xl font-fontNoto text-[#344E41]">Recent Blog Features</h3>
-            <p className="w-1/3 text-center mx-auto text-sm mt-4 leading-relaxed text-[#588157]">Explore our most recent blog posts to stay in the loop with the latest trends, insights, and stories.</p>
-            <div className="grid grid-cols-3 gap-6 mt-10">
+            <p className="md:w-1/3 px-8 md:px-0 text-center mx-auto text-sm mt-4 leading-relaxed text-[#588157]">Explore our most recent blog posts to stay in the loop with the latest trends, insights, and stories.</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
                 {
                     data?.map(blog => <SingleFeaturedBlog key={blog._id} blog={blog}></SingleFeaturedBlog>)
                 }
