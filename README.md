@@ -3,6 +3,7 @@ Website name: BLOGPULSE
 Live Link: https://blog-pulse.vercel.app
 <br />
 5 Project Features of my website
+</br>
 ⚫Feature 1: Authentication System
 <br />
 I have make authentication system in my website. I have make two types of authentication system. Email and password sign up system also I have make the google signup system. There users can sign up by their google account. When a user will create an accoutn then I have make passowrd validation system. When a user will login or signup he/she will se a react hot toast.

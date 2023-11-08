@@ -4,7 +4,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Link, useParams } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-
+import 'react-photo-view/dist/react-photo-view.css';
+import { PhotoProvider, PhotoView } from "react-photo-view";
 const BlogDetails = () => {
   const { user } = useAuth();
   const { id } = useParams();
@@ -77,7 +78,11 @@ const BlogDetails = () => {
       <div className="grid grid-cols-4 gap-10">
         {/* blog description */}
         <div className="col-span-3">
-          <img className="h-[500px] w-full" src={blogImage} alt="" />
+          <PhotoProvider>
+             <PhotoView src={blogImage}>
+                <img className="h-[500px] w-full" src={blogImage} alt="" />
+             </PhotoView>
+          </PhotoProvider>
           <h3 className="mt-7 text-3xl font-semibold">{blogTitle}</h3>
           <div className="mt-8">
             <h3 className="mt-3 text-lg  font-semibold">Summary:</h3>
