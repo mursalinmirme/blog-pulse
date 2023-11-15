@@ -25,7 +25,7 @@ const WishList = () => {
   const handleRemoveWishList = (deleteId) => {
     const toastId = toast.loading("Deleting...");
     axios
-      .delete(`https://blog-pulse-server.vercel.app/wishlist/${deleteId}`)
+      .delete(`http://localhost:5000/wishlist/${deleteId}`)
       .then((res) => {
         console.log(res.data);
         if (res.data.acknowledged) {

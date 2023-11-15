@@ -18,7 +18,7 @@ const SingleFeaturedBlog = ({ blog }) => {
     };
     const toastId = toast.loading("wishlisting...");
     axios
-      .post(`https://blog-pulse-server.vercel.app/wishlist`, newWishList)
+      .post(`http://localhost:5000/wishlist`, newWishList)
       .then((res) => {
         if (res.data.acknowledged) {
           toast.success("Wishlist added successfully", { id: toastId });

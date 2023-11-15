@@ -7,13 +7,13 @@ import "react-photo-view/dist/react-photo-view.css";
 import { Link, useParams } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../useHooks/useAxiosSecure";
-import Skeleton from "react-loading-skeleton";
 import BlogDetailsSkeleton from "./BlogDetailsSkeleton";
+import coverImage from '../assets/bannerBg.jpg';
 const BlogDetails = () => {
   const { user } = useAuth();
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
-  const { data: currentItem, isLoading: currentBlogLoading } = useQuery({
+  const { data: currentItem=[], isLoading: currentBlogLoading } = useQuery({
     queryKey: ["currentBlogs"],
     queryFn: async () => {
       const getItem = await axiosSecure.get(`/allblogs/${id}`);
@@ -21,21 +21,21 @@ const BlogDetails = () => {
     },
   });
   const {
-    data: getPostComment,
+    data: getPostComment=[],
     isLoading: getPostCommentLoading,
     refetch,
   } = useQuery({
     queryKey: ["blogComments"],
     queryFn: async () => {
       const getComments = await axios.get(
-        `https://blog-pulse-server.vercel.app/comments?blog=${id}`
+        `http://localhost:5000/comments?blog=${id}`
       );
       return getComments.data;
     },
   });
   console.log("comments under this post", getPostComment);
   if (currentBlogLoading) {
-    return <BlogDetailsSkeleton></BlogDetailsSkeleton>
+    return <BlogDetailsSkeleton></BlogDetailsSkeleton>;
   }
   // if (getPostCommentLoading) {
   //   return <h3>Loading...</h3>;
@@ -50,6 +50,7 @@ const BlogDetails = () => {
     bloggerId,
     bloggerName,
     bloggerEmail,
+    bloggerImage,
     blogPostTime,
   } = currentItem;
 
@@ -60,13 +61,13 @@ const BlogDetails = () => {
       blogId: _id,
       bloggerId,
       comment,
-      commenterName: bloggerName,
+      commenterName: user?.displayName,
       commenterImage: user?.photoURL,
       commenterEmail: user?.email,
     };
     const toastId = toast.loading("Posting...");
     axios
-      .post("https://blog-pulse-server.vercel.app/comments", newComment)
+      .post("http://localhost:5000/comments", newComment)
       .then((res) => {
         console.log(res.data);
         if (res.data.acknowledged) {
@@ -80,19 +81,19 @@ const BlogDetails = () => {
       });
   };
   return (
-    <div className="mt-20 w-10/12 mx-auto">
+    <div className="mt-20 w-11/12 lg:w-10/12 mx-auto">
       <div className="grid grid-cols-4 gap-10">
         {/* blog description */}
-        <div className="col-span-3">
+        <div className="col-span-4 lg:col-span-3">
           <PhotoProvider>
             <PhotoView src={blogImage}>
-            <img className="h-[500px] w-full" src={blogImage} alt="" />
+              <img className="h-[500px] w-full" src={blogImage} alt="" />
             </PhotoView>
           </PhotoProvider>
           <h3 className="mt-7 text-3xl font-semibold">{blogTitle}</h3>
           <div className="font-medium mt-7">
             <span className="px-7 inline py-3 bg-[#A3B18A]">{category}</span>
-            </div>
+          </div>
           <div className="mt-8">
             <h3 className="mt-3 text-lg  font-semibold">Summary:</h3>
             <p className="">{shortDescription}</p>
@@ -121,11 +122,23 @@ const BlogDetails = () => {
           )}
         </div>
         {/* externl details or add */}
-        <div className="col-span-1 bg-gray-100"></div>
+        <div className="hidden lg:block lg:col-span-1 bg-gray-100">
+           <div className="">
+            <img className="w-full bg-red-500 h-40" src={coverImage} alt="" />
+              <div className="flex justify-center">
+              <img className="w-40 h-40 rounded-full object-cover -mt-24 border-4 border-[#A3B18A] border-dashed" src={bloggerImage} alt="" />
+              </div>
+           </div>
+           <h3 className="text-center mt-3 font-semibold text-2xl">{bloggerName}</h3>
+           <div className="px-3 mt-3">
+            <p className="text-center font-medium text-gray-600">Total Blog: 5</p>
+            <p className="text-center font-medium text-gray-600">Interester</p>
+           </div>
+        </div>
       </div>
       {/* comments section */}
       <div className="grid grid-cols-4">
-        <div className="col-span-3">
+        <div className="col-span-4 lg:col-span-3">
           <div className="mt-16 flex items-center gap-5">
             <span className="border-b-2 flex-1"></span>
             <span className="text-lg text-[#3A5A40] font-medium font-fontNoto">
@@ -189,7 +202,8 @@ const BlogDetails = () => {
             </div>
           </div>
         </div>
-        <div className="col-span-1"></div>
+        <div className="hidden lg:visible lg:col-span-1">
+        </div>
       </div>
     </div>
   );

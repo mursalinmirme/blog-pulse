@@ -25,7 +25,7 @@ const Signin = () => {
         toast.success("Login Successfully", { id: toastId });
         const currentPerson = { email: res.user?.email };
         axios
-          .post("https://blog-pulse-server.vercel.app/jwt", currentPerson, {
+          .post("http://localhost:5000/jwt", currentPerson, {
             withCredentials: true,
           })
           .then(() => {
@@ -51,7 +51,7 @@ const Signin = () => {
         toast.success("You are successfully logged in.");
         const currentPerson = { email: response.user?.email };
         axios
-          .post("https://blog-pulse-server.vercel.app/jwt", currentPerson, {
+          .post("http://localhost:5000/jwt", currentPerson, {
             withCredentials: true,
           })
           .then((res) => {
@@ -82,7 +82,7 @@ const Signin = () => {
               className="border px-3 py-3 outline-none"
               type="text"
               name="email"
-              id=""
+              id="email"
               placeholder="Enter your email"
               required
             />
@@ -95,7 +95,7 @@ const Signin = () => {
               className="border px-3 py-3 outline-none"
               type={passwordType ? "text" : "password"}
               name="password"
-              id=""
+              id="password"
               placeholder="Enter your password"
               required
             />

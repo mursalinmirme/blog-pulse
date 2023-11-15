@@ -17,6 +17,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import BlogDetails from './pages/BlogDetails'
 import PrivateRouter from './auth/PrivateRouter'
 import { SkeletonTheme } from 'react-loading-skeleton'
+import MyProfile from './pages/MyProfile'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: '/blogs/:id',
         element: <PrivateRouter><BlogDetails></BlogDetails></PrivateRouter>,
+      },
+      {
+        path: '/my-profile/:id',
+        element: <PrivateRouter><MyProfile></MyProfile></PrivateRouter>,
       },
 
     ]

@@ -10,9 +10,7 @@ const RecentBlogs = () => {
     queryKey: ["recentBlogs"],
     queryFn: () => {
       return axios
-        .get(
-          `https://blog-pulse-server.vercel.app/recentBlogs?time=${blogPostTime}`
-        )
+        .get(`http://localhost:5000/recentBlogs?time=${blogPostTime}`)
         .then((res) => {
           // console.log(res.data);
           return res.data;

@@ -11,9 +11,7 @@ const UpdateBlog = () => {
   const categoryItem = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
-      const cateFatch = await axios.get(
-        "https://blog-pulse-server.vercel.app/categories"
-      );
+      const cateFatch = await axios.get("http://localhost:5000/categories");
       const categori = await cateFatch.data;
       return categori;
     },
@@ -44,6 +42,7 @@ const UpdateBlog = () => {
     bloggerName,
     bloggerEmail,
     blogPostTime,
+    bloggerImage,
   } = data;
   const handleUpdateBlog = (e) => {
     e.preventDefault();
@@ -64,10 +63,11 @@ const UpdateBlog = () => {
       bloggerName,
       bloggerEmail,
       blogPostTime,
+      bloggerImage,
     };
     const toastId = toast.loading("Updating...");
     axios
-      .put(`https://blog-pulse-server.vercel.app/update-blog/${id}`, updateBlog)
+      .put(`http://localhost:5000/update-blog/${id}`, updateBlog)
       .then((res) => {
         console.log("Update status is", res.data);
         if (res.data.acknowledged) {

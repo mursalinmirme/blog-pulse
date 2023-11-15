@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 const axiosSecure = axios.create({
-  baseURL: "https://blog-pulse-server.vercel.app",
+  baseURL: "http://localhost:5000",
   withCredentials: true,
 });
 const useAxiosSecure = () => {
@@ -21,7 +21,7 @@ const useAxiosSecure = () => {
           console.log("you should log out the user");
           const lastUser = { logoutUser: user?.email };
           axios
-            .post("https://blog-pulse-server.vercel.app/logout", lastUser, {
+            .post("http://localhost:5000/logout", lastUser, {
               withCredentials: true,
             })
             .then(() => {

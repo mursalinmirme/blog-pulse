@@ -2,21 +2,21 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { motion } from "framer-motion";
 import DataTable from "react-data-table-component";
-import "./FeaturedBlogs.css";
 import FeaturedBlogsSkeleton from "../components/FeaturedBlogsSkeleton";
+import "./FeaturedBlogs.css";
 
 const FeaturedBlogs = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["featuredBlogsList"],
     queryFn: async () => {
       const getFeaturedData = await axios.get(
-        "https://blog-pulse-server.vercel.app/featured-blogs"
+        "http://localhost:5000/featured-blogs"
       );
       return getFeaturedData.data;
     },
   });
   if (isLoading) {
-    return <FeaturedBlogsSkeleton></FeaturedBlogsSkeleton>
+    return <FeaturedBlogsSkeleton></FeaturedBlogsSkeleton>;
   }
   let tableData = [];
   for (let i = 0; i < data.length; i++) {

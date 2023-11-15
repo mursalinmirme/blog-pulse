@@ -11,9 +11,7 @@ const AddBlog = () => {
   const category = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
-      const cateFatch = await axios.get(
-        "https://blog-pulse-server.vercel.app/categories"
-      );
+      const cateFatch = await axios.get("http://localhost:5000/categories");
       const categori = await cateFatch.data;
       return categori;
     },
@@ -42,11 +40,12 @@ const AddBlog = () => {
       bloggerName,
       bloggerEmail,
       blogPostTime,
+      bloggerImage,
     };
     console.log(newBlog);
     const toastId = toast.loading("Posting...");
     axios
-      .post("https://blog-pulse-server.vercel.app/addnewblog", newBlog)
+      .post("http://localhost:5000/addnewblog", newBlog)
       .then((res) => {
         console.log(res.data);
         if (res.data.acknowledged) {

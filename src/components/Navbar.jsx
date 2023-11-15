@@ -15,11 +15,12 @@ import * as React from "react";
 import toast from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import ProfileMenu from "./ProfileMenu";
+
 
 const drawerWidth = 240;
 const Navbar = (props) => {
   const { user, userLogout } = useAuth();
-  console.log("user from navbar", user);
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -29,7 +30,7 @@ const Navbar = (props) => {
     userLogout()
       .then(() => {
         axios
-          .post("https://blog-pulse-server.vercel.app/logout", lastUser, {
+          .post("http://localhost:5000/logout", lastUser, {
             withCredentials: true,
           })
           .then(() => {
@@ -44,6 +45,7 @@ const Navbar = (props) => {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+
 
   const navItems = (
     <>
@@ -139,7 +141,11 @@ const Navbar = (props) => {
                 src={user?.photoURL}
                 alt=""
               />
-              <Button style={{ marginTop: "15px" }} variant="outline">
+              <Button
+                onClick={handleUserLogOUt}
+                style={{ marginTop: "15px" }}
+                variant="outline"
+              >
                 <Link>Logout</Link>
               </Button>
             </>
@@ -201,11 +207,12 @@ const Navbar = (props) => {
                 <div className="flex items-center gap-5">
                   {user ? (
                     <>
-                      <img
+                      {/* <img
                         className="w-11 h-11 rounded-full"
                         src={user?.photoURL}
                         alt=""
-                      />
+                      /> */}
+                      <ProfileMenu profile={user?.photoURL}></ProfileMenu>
                       <Button
                         onClick={handleUserLogOUt}
                         style={{

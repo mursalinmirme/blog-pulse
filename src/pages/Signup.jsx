@@ -50,7 +50,7 @@ const Signup = () => {
             form.reset();
             const currentPerson = { email: email };
             axios
-              .post("https://blog-pulse-server.vercel.app/jwt", currentPerson, {
+              .post("http://localhost:5000/jwt", currentPerson, {
                 withCredentials: true,
               })
               .then(() => {
@@ -74,7 +74,7 @@ const Signup = () => {
         console.log("###", response.user?.email);
         const currentPerson = { email: response.user?.email };
         axios
-          .post("https://blog-pulse-server.vercel.app/jwt", currentPerson, {
+          .post("http://localhost:5000/jwt", currentPerson, {
             withCredentials: true,
           })
           .then(() => {

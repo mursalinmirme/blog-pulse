@@ -14,7 +14,7 @@ const AllBlogs = () => {
     queryKey: [categoryValue],
     queryFn: async () => {
       const fetch = await axios.get(
-        `https://blog-pulse-server.vercel.app/allblogs?display=${categoryValue}`
+        `http://localhost:5000/allblogs?display=${categoryValue}`
       );
       const data = await fetch.data;
       setShowBlogs(data);
@@ -25,9 +25,7 @@ const AllBlogs = () => {
   const { data: category, isLoading: categoriLoding } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
-      const cateFatch = await axios.get(
-        "https://blog-pulse-server.vercel.app/categories"
-      );
+      const cateFatch = await axios.get("http://localhost:5000/categories");
       const categori = await cateFatch.data;
       return categori;
     },
@@ -38,7 +36,7 @@ const AllBlogs = () => {
     queryFn: async () => {
       if (searchVal) {
         const searchBlogFatch = await axios.get(
-          `https://blog-pulse-server.vercel.app/searchBlog?search=${searchVal}`
+          `http://localhost:5000/searchBlog?search=${searchVal}`
         );
         const searchBlog = await searchBlogFatch.data;
         setShowBlogs(searchBlog);
