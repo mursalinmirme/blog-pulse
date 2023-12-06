@@ -1,6 +1,5 @@
 import { Button } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
@@ -9,7 +8,6 @@ import useAxiosPublic from "../useHooks/useAxiosPublic";
 const AddBlog = () => {
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
-  console.log(user?.uid);
   const category = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
@@ -49,14 +47,12 @@ const AddBlog = () => {
     axiosPublic
       .post("/addnewblog", newBlog)
       .then((res) => {
-        console.log(res.data);
         if (res.data.acknowledged) {
           toast.success("Blog post successfully", { id: toastId });
           form.reset();
         }
       })
       .catch((err) => {
-        console.log(err);
         toast.success(err.message, { id: toastId });
       });
   };

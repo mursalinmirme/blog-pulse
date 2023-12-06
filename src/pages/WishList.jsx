@@ -1,6 +1,5 @@
 import { Button } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { FiBookmark } from "react-icons/fi";
@@ -27,14 +26,13 @@ const WishList = () => {
     axiosSecure
       .delete(`/wishlist/${deleteId}`)
       .then((res) => {
-        console.log(res.data);
         if (res.data.acknowledged) {
           refetch();
           toast.success("Wishlist Delete successfully", { id: toastId });
         }
       })
       .catch((err) => {
-        console.log(err.message);
+        toast.error(err.message);
       });
   };
   if (isLoading) {

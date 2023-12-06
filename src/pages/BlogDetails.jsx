@@ -35,7 +35,7 @@ const BlogDetails = () => {
       return getComments.data;
     },
   });
-  console.log("comments under this post", getPostComment);
+
   if (currentBlogLoading) {
     return <BlogDetailsSkeleton></BlogDetailsSkeleton>;
   }
@@ -71,14 +71,12 @@ const BlogDetails = () => {
     axiosSecure
       .post("/comments", newComment)
       .then((res) => {
-        console.log(res.data);
         if (res.data.acknowledged) {
           refetch();
           toast.success("Comment posted successfully!", { id: toastId });
         }
       })
       .catch((err) => {
-        console.log(err.message);
         toast.success(err.message, { id: toastId });
       });
   };

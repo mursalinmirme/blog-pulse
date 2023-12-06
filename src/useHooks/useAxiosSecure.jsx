@@ -9,26 +9,25 @@ const axiosSecure = axios.create({
   withCredentials: true,
 });
 const useAxiosSecure = () => {
-  const { userLogout, user } = useAuth();
+  const { userLogout } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    axiosSecure.interceptors.response.use((response) => {
-        return response
-    }, (error) => {
-        if(error.response.status === 401 || error.response.status === 403){
+    axiosSecure.interceptors.response.use(
+      (response) => {
+        return response;
+      },
+      (error) => {
+        if (error.response.status === 401 || error.response.status === 403) {
+          axiosSecure.post("/logout").then(() => {
             userLogout();
-            navigate('/signin');
-            axiosSecure
-            .post("/logout")
-            .then(() => {
-              userLogout();
-              toast.error("You are logged out!");
-            });
-          navigate("/signin");
+            toast.error("You are logged out!");
+            navigate("/signin");
+          });
         }
-    })
-}, [navigate, userLogout])
+      }
+    );
+  }, [navigate, userLogout]);
 
   return axiosSecure;
 };

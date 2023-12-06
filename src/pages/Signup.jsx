@@ -23,8 +23,6 @@ const Signup = () => {
     const image = form.image.value;
     const email = form.email.value;
     const password = form.password.value;
-    // const updateInfo = {displayName: name, photoURL: image }
-    // const newUser = {name, image, email, password};
     const toastId = toast.loading("Creating...");
     if (!/^(.{6,})$/.test(password)) {
       return toast.error("Password must be at least 6 characters", {
@@ -45,7 +43,6 @@ const Signup = () => {
     }
     signupByemailAndpassowrd(email, password)
       .then(() => {
-        // console.log(res);
         updateNameAndProfile({ displayName: name, photoURL: image })
           .then(() => {
             toast.success("Registration successfully", { id: toastId });
@@ -58,7 +55,7 @@ const Signup = () => {
               .then(() => {
                 navigate("/");
               })
-              .catch((err) => console.log(err.message));
+              .catch((err) => toast.error(err.message));
           })
           .catch((error) => {
             toast.error(error.message, { id: toastId });
@@ -73,7 +70,6 @@ const Signup = () => {
     googleSignin()
       .then((response) => {
         toast.success("Registration successfully");
-        console.log("###", response.user?.email);
         const currentPerson = { email: response.user?.email };
         axios
           .post("/jwt", currentPerson, {
@@ -82,7 +78,7 @@ const Signup = () => {
           .then(() => {
             navigate("/");
           })
-          .catch((err) => console.log(err.message));
+          .catch((err) => toast.error(err.message));
       })
       .catch((err) => {
         toast.error(err.message);

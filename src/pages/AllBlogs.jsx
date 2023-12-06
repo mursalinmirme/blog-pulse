@@ -1,6 +1,5 @@
 import { Button, MenuItem, Select } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useState } from "react";
 import AllBlogSkeleton from "../components/AllBlogSkeleton";
 import SingleBlogForAllBlog from "../components/SingleBlogForAllBlog";
@@ -11,13 +10,10 @@ const AllBlogs = () => {
   const [searchVal, setSearchVal] = useState(null);
   const [showBlogs, setShowBlogs] = useState([]);
   const axiosPublic = useAxiosPublic();
-  // console.log('category value is:', categoryValue);
   const { data, isLoading } = useQuery({
     queryKey: [categoryValue],
     queryFn: async () => {
-      const fetch = await axiosPublic.get(
-        `/allblogs?display=${categoryValue}`
-      );
+      const fetch = await axiosPublic.get(`/allblogs?display=${categoryValue}`);
       const data = await fetch.data;
       setShowBlogs(data);
       return data;
@@ -47,7 +43,6 @@ const AllBlogs = () => {
       return [];
     },
   });
-  console.log("Show blogs are", showBlogs);
   const handleSearchSystem = (e) => {
     // setSearchVal('')
     e.preventDefault();

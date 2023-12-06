@@ -9,14 +9,13 @@ import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import axios from "axios";
 import PropTypes from "prop-types";
 import * as React from "react";
 import toast from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import ProfileMenu from "./ProfileMenu";
 import useAxiosPublic from "../useHooks/useAxiosPublic";
+import ProfileMenu from "./ProfileMenu";
 
 const drawerWidth = 240;
 const Navbar = (props) => {

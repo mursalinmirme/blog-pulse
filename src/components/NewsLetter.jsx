@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
+import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import newsletter from "../assets/newsletter.jpg";
-import { motion } from "framer-motion"
 const NewsLetter = () => {
   const handleNewLetter = (e) => {
     e.preventDefault();
@@ -12,10 +12,10 @@ const NewsLetter = () => {
     }
   };
   return (
-    <motion.div 
-    initial={{ opacity: 0, scale: 0.5 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.5 }}
+    <motion.div
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
     >
       <div className="max-w-screen-2xl mx-auto">
         <div className="w-11/12 lg:w-10/12 mx-auto border mt-20 relative h-96">

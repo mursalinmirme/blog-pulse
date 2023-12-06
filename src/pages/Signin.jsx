@@ -1,5 +1,4 @@
 import { Button } from "@mui/material";
-import axios from "axios";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -18,12 +17,9 @@ const Signin = () => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    // const updateInfo = {displayName: name, photoURL: image }
-    // const newUser = {name, image, email, password};
     const toastId = toast.loading("Signing...");
     signinwithEmailandPasswrd(email, password)
       .then((res) => {
-        // console.log(res);
         toast.success("Login Successfully", { id: toastId });
         const currentPerson = { email: res.user?.email };
         axiosPublic
@@ -33,7 +29,7 @@ const Signin = () => {
           .then(() => {
             navigate("/");
           })
-          .catch((err) => console.log(err.message));
+          .catch((err) => toast.error(err.message));
       })
       .catch((err) => {
         if (
@@ -59,7 +55,7 @@ const Signin = () => {
           .then((res) => {
             navigate("/");
           })
-          .catch((err) => console.log(err.message));
+          .catch((err) => toast.error(err.message));
       })
       .catch((err) => {
         toast.error(err.message);

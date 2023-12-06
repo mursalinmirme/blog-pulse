@@ -1,5 +1,4 @@
 import { Button } from "@mui/material";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { FiBookmark } from "react-icons/fi";
 import { Link } from "react-router-dom";

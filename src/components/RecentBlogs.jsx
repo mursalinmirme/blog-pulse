@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import toast from "react-hot-toast";
 import "react-loading-skeleton/dist/skeleton.css";
+import useAxiosPublic from "../useHooks/useAxiosPublic";
 import BlogSkeleton from "./BlogSkeleton";
 import SingleFeaturedBlog from "./SingleFeaturedBlog";
-import useAxiosPublic from "../useHooks/useAxiosPublic";
 const RecentBlogs = () => {
   const date = new Date();
   const blogPostTime = date.toISOString();
@@ -14,11 +14,10 @@ const RecentBlogs = () => {
       return axiosPublic
         .get(`/recentBlogs?time=${blogPostTime}`)
         .then((res) => {
-          // console.log(res.data);
           return res.data;
         })
         .catch((err) => {
-          console.log(err);
+          toast.error(err);
         });
     },
   });

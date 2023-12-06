@@ -1,5 +1,4 @@
 import { Button } from "@mui/material";
-import axios from "axios";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { FiBookmark } from "react-icons/fi";
@@ -11,7 +10,7 @@ const SingleBlogForAllBlog = ({ singleBlog }) => {
   const { _id, blogTitle, blogImage, category, shortDescription } = singleBlog;
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
-  console.log(singleBlog);
+
   const handleWishlist = () => {
     const newWishList = {
       blogId: _id,

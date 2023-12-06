@@ -1,19 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { motion } from "framer-motion";
 import DataTable from "react-data-table-component";
 import FeaturedBlogsSkeleton from "../components/FeaturedBlogsSkeleton";
-import "./FeaturedBlogs.css";
 import useAxiosPublic from "../useHooks/useAxiosPublic";
+import "./FeaturedBlogs.css";
 
 const FeaturedBlogs = () => {
   const axiosPublic = useAxiosPublic();
   const { data, isLoading } = useQuery({
     queryKey: ["featuredBlogsList"],
     queryFn: async () => {
-      const getFeaturedData = await axiosPublic.get(
-        "/featured-blogs"
-      );
+      const getFeaturedData = await axiosPublic.get("/featured-blogs");
       return getFeaturedData.data;
     },
   });
@@ -22,14 +19,12 @@ const FeaturedBlogs = () => {
   }
   let tableData = [];
   for (let i = 0; i < data.length; i++) {
-    console.log(data[i]);
     tableData.push({
       blogTitle: data[i]?.blogTitle,
       blogOwner: data[i]?.bloggerName,
       ownerProfilePicture: data[i]?.bloggerImage,
     });
   }
-  console.log("new table is", tableData);
 
   const columns = [
     {

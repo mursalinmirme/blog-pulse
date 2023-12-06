@@ -1,6 +1,5 @@
 import { Button } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import useAxiosSecure from "../useHooks/useAxiosSecure";
@@ -16,7 +15,6 @@ const UpdateBlog = () => {
       return categori;
     },
   });
-  // console.log('use params from update page',id);
   const { data, isLoading } = useQuery({
     queryKey: ["updateBlog"],
     queryFn: async () => {
@@ -24,7 +22,6 @@ const UpdateBlog = () => {
       return getUpdateBlog.data;
     },
   });
-  console.log("update blog is", data);
   if (isLoading) {
     return (
       <div className="flex w-full justify-center items-center h-96">
@@ -69,13 +66,12 @@ const UpdateBlog = () => {
     axiosSecure
       .put(`/update-blog/${id}`, updateBlog)
       .then((res) => {
-        console.log("Update status is", res.data);
         if (res.data.acknowledged) {
           toast.success("Updated Successfully", { id: toastId });
         }
       })
       .catch((err) => {
-        console.log("Update status is", err.message);
+        toast.error(err.message);
       });
   };
 
