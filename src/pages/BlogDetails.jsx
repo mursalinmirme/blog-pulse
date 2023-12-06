@@ -5,15 +5,17 @@ import toast from "react-hot-toast";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
 import { Link, useParams } from "react-router-dom";
+import coverImage from "../assets/bannerBg.jpg";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../useHooks/useAxiosSecure";
 import BlogDetailsSkeleton from "./BlogDetailsSkeleton";
-import coverImage from '../assets/bannerBg.jpg';
+import useAxiosPublic from "../useHooks/useAxiosPublic";
 const BlogDetails = () => {
   const { user } = useAuth();
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
-  const { data: currentItem=[], isLoading: currentBlogLoading } = useQuery({
+  const axiosPublic = useAxiosPublic();
+  const { data: currentItem = [], isLoading: currentBlogLoading } = useQuery({
     queryKey: ["currentBlogs"],
     queryFn: async () => {
       const getItem = await axiosSecure.get(`/allblogs/${id}`);
@@ -21,14 +23,14 @@ const BlogDetails = () => {
     },
   });
   const {
-    data: getPostComment=[],
+    data: getPostComment = [],
     isLoading: getPostCommentLoading,
     refetch,
   } = useQuery({
     queryKey: ["blogComments"],
     queryFn: async () => {
-      const getComments = await axios.get(
-        `http://localhost:5000/comments?blog=${id}`
+      const getComments = await axiosSecure.get(
+        `/comments?blog=${id}`
       );
       return getComments.data;
     },
@@ -66,8 +68,8 @@ const BlogDetails = () => {
       commenterEmail: user?.email,
     };
     const toastId = toast.loading("Posting...");
-    axios
-      .post("http://localhost:5000/comments", newComment)
+    axiosSecure
+      .post("/comments", newComment)
       .then((res) => {
         console.log(res.data);
         if (res.data.acknowledged) {
@@ -123,17 +125,25 @@ const BlogDetails = () => {
         </div>
         {/* externl details or add */}
         <div className="hidden lg:block lg:col-span-1 bg-gray-100">
-           <div className="">
+          <div className="">
             <img className="w-full bg-red-500 h-40" src={coverImage} alt="" />
-              <div className="flex justify-center">
-              <img className="w-40 h-40 rounded-full object-cover -mt-24 border-4 border-[#A3B18A] border-dashed" src={bloggerImage} alt="" />
-              </div>
-           </div>
-           <h3 className="text-center mt-3 font-semibold text-2xl">{bloggerName}</h3>
-           <div className="px-3 mt-3">
-            <p className="text-center font-medium text-gray-600">Total Blog: 5</p>
+            <div className="flex justify-center">
+              <img
+                className="w-40 h-40 rounded-full object-cover -mt-24 border-4 border-[#A3B18A] border-dashed"
+                src={bloggerImage}
+                alt=""
+              />
+            </div>
+          </div>
+          <h3 className="text-center mt-3 font-semibold text-2xl">
+            {bloggerName}
+          </h3>
+          <div className="px-3 mt-3">
+            <p className="text-center font-medium text-gray-600">
+              Total Blog: 5
+            </p>
             <p className="text-center font-medium text-gray-600">Interester</p>
-           </div>
+          </div>
         </div>
       </div>
       {/* comments section */}
@@ -202,8 +212,7 @@ const BlogDetails = () => {
             </div>
           </div>
         </div>
-        <div className="hidden lg:visible lg:col-span-1">
-        </div>
+        <div className="hidden lg:visible lg:col-span-1"></div>
       </div>
     </div>
   );

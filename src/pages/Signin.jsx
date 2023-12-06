@@ -7,10 +7,12 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import useAxiosPublic from "../useHooks/useAxiosPublic";
 const Signin = () => {
   const [passwordType, setPasswordType] = useState(false);
   const { signinwithEmailandPasswrd, googleSignin } = useAuth();
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
   const handleSignIn = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -24,8 +26,8 @@ const Signin = () => {
         // console.log(res);
         toast.success("Login Successfully", { id: toastId });
         const currentPerson = { email: res.user?.email };
-        axios
-          .post("http://localhost:5000/jwt", currentPerson, {
+        axiosPublic
+          .post("/jwt", currentPerson, {
             withCredentials: true,
           })
           .then(() => {
@@ -50,8 +52,8 @@ const Signin = () => {
       .then((response) => {
         toast.success("You are successfully logged in.");
         const currentPerson = { email: response.user?.email };
-        axios
-          .post("http://localhost:5000/jwt", currentPerson, {
+        axiosPublic
+          .post("/jwt", currentPerson, {
             withCredentials: true,
           })
           .then((res) => {

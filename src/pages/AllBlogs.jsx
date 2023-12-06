@@ -4,17 +4,19 @@ import axios from "axios";
 import { useState } from "react";
 import AllBlogSkeleton from "../components/AllBlogSkeleton";
 import SingleBlogForAllBlog from "../components/SingleBlogForAllBlog";
+import useAxiosPublic from "../useHooks/useAxiosPublic";
 
 const AllBlogs = () => {
   const [categoryValue, setcategoryValue] = useState("All");
   const [searchVal, setSearchVal] = useState(null);
   const [showBlogs, setShowBlogs] = useState([]);
+  const axiosPublic = useAxiosPublic();
   // console.log('category value is:', categoryValue);
   const { data, isLoading } = useQuery({
     queryKey: [categoryValue],
     queryFn: async () => {
-      const fetch = await axios.get(
-        `http://localhost:5000/allblogs?display=${categoryValue}`
+      const fetch = await axiosPublic.get(
+        `/allblogs?display=${categoryValue}`
       );
       const data = await fetch.data;
       setShowBlogs(data);
@@ -25,7 +27,7 @@ const AllBlogs = () => {
   const { data: category, isLoading: categoriLoding } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
-      const cateFatch = await axios.get("http://localhost:5000/categories");
+      const cateFatch = await axiosPublic.get("/categories");
       const categori = await cateFatch.data;
       return categori;
     },
@@ -35,8 +37,8 @@ const AllBlogs = () => {
     queryKey: [searchVal, setSearchVal],
     queryFn: async () => {
       if (searchVal) {
-        const searchBlogFatch = await axios.get(
-          `http://localhost:5000/searchBlog?search=${searchVal}`
+        const searchBlogFatch = await axiosPublic.get(
+          `/searchBlog?search=${searchVal}`
         );
         const searchBlog = await searchBlogFatch.data;
         setShowBlogs(searchBlog);

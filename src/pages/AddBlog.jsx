@@ -4,14 +4,16 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
+import useAxiosPublic from "../useHooks/useAxiosPublic";
 
 const AddBlog = () => {
   const { user } = useAuth();
+  const axiosPublic = useAxiosPublic();
   console.log(user?.uid);
   const category = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
-      const cateFatch = await axios.get("http://localhost:5000/categories");
+      const cateFatch = await axiosPublic.get("/categories");
       const categori = await cateFatch.data;
       return categori;
     },
@@ -44,8 +46,8 @@ const AddBlog = () => {
     };
     console.log(newBlog);
     const toastId = toast.loading("Posting...");
-    axios
-      .post("http://localhost:5000/addnewblog", newBlog)
+    axiosPublic
+      .post("/addnewblog", newBlog)
       .then((res) => {
         console.log(res.data);
         if (res.data.acknowledged) {

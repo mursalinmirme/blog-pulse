@@ -3,14 +3,16 @@ import axios from "axios";
 import "react-loading-skeleton/dist/skeleton.css";
 import BlogSkeleton from "./BlogSkeleton";
 import SingleFeaturedBlog from "./SingleFeaturedBlog";
+import useAxiosPublic from "../useHooks/useAxiosPublic";
 const RecentBlogs = () => {
   const date = new Date();
   const blogPostTime = date.toISOString();
+  const axiosPublic = useAxiosPublic();
   const { data, isLoading } = useQuery({
     queryKey: ["recentBlogs"],
     queryFn: () => {
-      return axios
-        .get(`http://localhost:5000/recentBlogs?time=${blogPostTime}`)
+      return axiosPublic
+        .get(`/recentBlogs?time=${blogPostTime}`)
         .then((res) => {
           // console.log(res.data);
           return res.data;

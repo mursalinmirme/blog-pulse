@@ -5,34 +5,30 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: import.meta.env.VITE_RUNNING_SERVER,
   withCredentials: true,
 });
 const useAxiosSecure = () => {
   const { userLogout, user } = useAuth();
   const navigate = useNavigate();
+
   useEffect(() => {
-    axiosSecure.interceptors.response.use(
-      (response) => {
-        return response;
-      },
-      (error) => {
-        if (error.response.status === 401 || error.response.status === 403) {
-          console.log("you should log out the user");
-          const lastUser = { logoutUser: user?.email };
-          axios
-            .post("http://localhost:5000/logout", lastUser, {
-              withCredentials: true,
-            })
+    axiosSecure.interceptors.response.use((response) => {
+        return response
+    }, (error) => {
+        if(error.response.status === 401 || error.response.status === 403){
+            userLogout();
+            navigate('/signin');
+            axiosSecure
+            .post("/logout")
             .then(() => {
               userLogout();
               toast.error("You are logged out!");
             });
           navigate("/signin");
         }
-      }
-    );
-  }, []);
+    })
+}, [navigate, userLogout])
 
   return axiosSecure;
 };

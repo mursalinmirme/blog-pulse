@@ -11,7 +11,7 @@ const UpdateBlog = () => {
   const categoryItem = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
-      const cateFatch = await axios.get("http://localhost:5000/categories");
+      const cateFatch = await axiosSecure.get("/categories");
       const categori = await cateFatch.data;
       return categori;
     },
@@ -66,8 +66,8 @@ const UpdateBlog = () => {
       bloggerImage,
     };
     const toastId = toast.loading("Updating...");
-    axios
-      .put(`http://localhost:5000/update-blog/${id}`, updateBlog)
+    axiosSecure
+      .put(`/update-blog/${id}`, updateBlog)
       .then((res) => {
         console.log("Update status is", res.data);
         if (res.data.acknowledged) {

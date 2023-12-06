@@ -4,9 +4,11 @@ import toast from "react-hot-toast";
 import { FiBookmark } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import useAxiosPublic from "../useHooks/useAxiosPublic";
 const SingleFeaturedBlog = ({ blog }) => {
   const { user } = useAuth();
   const { _id, blogTitle, blogImage, category, shortDescription } = blog;
+  const axiosPublic = useAxiosPublic();
   const handleWishlist = () => {
     const newWishList = {
       blogId: _id,
@@ -17,8 +19,8 @@ const SingleFeaturedBlog = ({ blog }) => {
       owner: user?.email,
     };
     const toastId = toast.loading("wishlisting...");
-    axios
-      .post(`http://localhost:5000/wishlist`, newWishList)
+    axiosPublic
+      .post(`/wishlist`, newWishList)
       .then((res) => {
         if (res.data.acknowledged) {
           toast.success("Wishlist added successfully", { id: toastId });

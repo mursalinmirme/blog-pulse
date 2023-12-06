@@ -4,13 +4,15 @@ import { motion } from "framer-motion";
 import DataTable from "react-data-table-component";
 import FeaturedBlogsSkeleton from "../components/FeaturedBlogsSkeleton";
 import "./FeaturedBlogs.css";
+import useAxiosPublic from "../useHooks/useAxiosPublic";
 
 const FeaturedBlogs = () => {
+  const axiosPublic = useAxiosPublic();
   const { data, isLoading } = useQuery({
     queryKey: ["featuredBlogsList"],
     queryFn: async () => {
-      const getFeaturedData = await axios.get(
-        "http://localhost:5000/featured-blogs"
+      const getFeaturedData = await axiosPublic.get(
+        "/featured-blogs"
       );
       return getFeaturedData.data;
     },

@@ -24,8 +24,8 @@ const WishList = () => {
 
   const handleRemoveWishList = (deleteId) => {
     const toastId = toast.loading("Deleting...");
-    axios
-      .delete(`http://localhost:5000/wishlist/${deleteId}`)
+    axiosSecure
+      .delete(`/wishlist/${deleteId}`)
       .then((res) => {
         console.log(res.data);
         if (res.data.acknowledged) {

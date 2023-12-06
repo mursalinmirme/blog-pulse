@@ -16,21 +16,22 @@ import toast from "react-hot-toast";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import ProfileMenu from "./ProfileMenu";
-
+import useAxiosPublic from "../useHooks/useAxiosPublic";
 
 const drawerWidth = 240;
 const Navbar = (props) => {
   const { user, userLogout } = useAuth();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const axiosPublic = useAxiosPublic();
 
   const handleUserLogOUt = () => {
     const toastId = toast.loading("Logouting...");
     const lastUser = { email: user?.email };
     userLogout()
       .then(() => {
-        axios
-          .post("http://localhost:5000/logout", lastUser, {
+        axiosPublic
+          .post("/logout", lastUser, {
             withCredentials: true,
           })
           .then(() => {
@@ -45,7 +46,6 @@ const Navbar = (props) => {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-
 
   const navItems = (
     <>
