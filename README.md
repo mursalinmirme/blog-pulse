@@ -23,3 +23,5 @@ I have implement save wishlist system in my project. Every logged in user can sa
 ⚫Feature 5: JWT token(Jsonwebtoken)
 <br />
 I have used jwt authentication system in my project. When a user will signup or signin. Everytime the user will get a access token from server in his httpcookie. I have make this system to secure usres data. This will secure users saved data. Like I have implent this for a user seved wishlist can not see others. also I have authenticate some routes in my project which help to secure user data.
+<br>
+<B>Technologies:</b> React, Node.js, express.js, MongoDB, Firebase, Tailwind, React-Loading-Skeleton****
