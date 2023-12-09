@@ -2,7 +2,7 @@ Website name: BLOGPULSE
 <br />
 Live Link: https://blog-pulse.vercel.app
 <br />
-5 Project Features of my website
+⚙ 5 Project Features of my website
 </br>
 ⚫Feature 1: Authentication System
 <br />
@@ -11,7 +11,6 @@ I have make authentication system in my website. I have make two types of authen
 ⚫Feature 2: Post Blog System and comment system
 <br />
 I have make blog postin system. Every logged in user can post blog. Users can post 6 categories blog. After every post blog the blog will visible in featured blog section. and it also visibel in all blog page. Every logged in user can see others blog and he/she will can post a comment under the blog details page.
-
  <br />
 ⚫Feature 3: Featured Blog page
 <br />
